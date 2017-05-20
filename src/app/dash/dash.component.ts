@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-// import { StoryService } from '../story.service';
+import { StoryService } from '../story.service';
 
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
-  styleUrls: ['./dash.component.css']
+  styleUrls: ['./dash.component.css'],
+  providers: [StoryService]
 })
 export class DashComponent implements OnInit {
   private sidebar: boolean = false;
-  constructor() { }
+  constructor(private storyService: StoryService) { }
 
   ngOnInit() {
   }
@@ -19,5 +20,9 @@ export class DashComponent implements OnInit {
     } else {
       this.sidebar = false;
     }
+  }
+
+  getStories() {
+    this.storyService.getStories();
   }
 }

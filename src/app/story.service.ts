@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+// import  query  from './story-query.js';
+var StoryQuery = require('./story-query.js');
 @Injectable()
 export class StoryService {
 
   constructor(private http: Http) { }
 
   getStories() {
+    console.log(StoryQuery);
+    // console.log(query);
     // let headers = new Headers({ 'X-AYLIEN-NewsAPI-Application-ID': '440541ee' }, { 'X-AYLIEN-NewsAPI-Application-Key': 'b6185cbe079502c701acd1e10d6a6de8' });
     //
     // let options = new RequestOptions({ headers: headers });
