@@ -1,0 +1,15 @@
+<nav class="nav-extended">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo center">Logo</a>
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li><a href="sass.html">Sass</a></li>
+    </ul>
+  </div>
+  <div class="nav-content">
+    <a (click)="showSidebar()" class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">settings</i></a>
+  </div>
+</nav>
+
+<div *ngIf="sidebar" class="sidebar">
+  <app-sidebar></app-sidebar>
+</div>
