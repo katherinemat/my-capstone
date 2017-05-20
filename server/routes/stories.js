@@ -1,5 +1,9 @@
-// var AylienNewsApi = require('aylien-news-api');
-import AylienNewsApi from 'aylien-news-api';
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+
+var AylienNewsApi = require('aylien-news-api');
 
 var apiInstance = new AylienNewsApi.DefaultApi();
 
@@ -24,18 +28,20 @@ var opts = {
   ]
 };
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully sorta. Returned data: ');
-    console.log('========================================');
-    for (var i = 0; i < data.stories.length; i++){
-      console.log(data.stories[i].title + " / " + data.stories[i].source.name);
-    }
-  }
-};
+// var callback = function(error, data, res) {
+//   if (error) {
+//     console.error(error);
+//   } else {
+//     console.log(data.stories);
+//     return data.stories;
+//   }
+// };
 
-export { apiInstance, opts, callback };
-// var test = "hey";
-// module.exports = test;
+//my-route/api/stories
+router.get('/stories', (req, res) => {
+  apiInstance.listStories(opts, (error, data, response) => {
+    res.send(data);
+  })
+});
+
+module.exports = router;
