@@ -16,26 +16,11 @@ var app_key = apiInstance.apiClient.authentications['app_key'];
 app_key.apiKey = "b6185cbe079502c701acd1e10d6a6de8";
 
 var opts = {
-  'title': 'trump',
   'sortBy': 'social_shares_count.facebook',
-  'language': ['en'],
-  'notLanguage': ['es', 'it'],
-  'publishedAtStart': 'NOW-7DAYS',
-  'publishedAtEnd': 'NOW',
-  'entitiesBodyLinksDbpedia': [
-    'http://dbpedia.org/resource/Donald_Trump',
-    'http://dbpedia.org/resource/Hillary_Rodham_Clinton'
-  ]
+  'sourceName': ["BBC", "CNN", "Fox News"],
+  'publishedAtStart': 'NOW-1DAYS',
+  'publishedAtEnd': 'NOW'
 };
-
-// var callback = function(error, data, res) {
-//   if (error) {
-//     console.error(error);
-//   } else {
-//     console.log(data.stories);
-//     return data.stories;
-//   }
-// };
 
 //my-route/api/stories
 router.get('/stories', (req, res) => {
