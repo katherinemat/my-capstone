@@ -6,14 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dash.component.css']
 })
 export class DashComponent implements OnInit {
-  private sidebar: boolean = false;
+  public sidebar = false;
   constructor() { }
 
   ngOnInit() {
   }
 
   showSidebar() {
-    if(this.sidebar == false) {
+    if (this.sidebar === false) {
       this.sidebar = true;
     } else {
       this.sidebar = false;

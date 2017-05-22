@@ -8,8 +8,8 @@ export class StoryService {
 
   constructor(private http: Http) { }
 
-  getStories(searchParams) {
-    //change this url when project is deployed to the actual url
+  getStories() {
+    // change this url when project is deployed to the actual url
     axios.get('/api/stories')
       .then((res) => {
         console.log(res);
