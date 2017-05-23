@@ -15,6 +15,7 @@ app_id.apiKey = "440541ee";
 var app_key = apiInstance.apiClient.authentications['app_key'];
 app_key.apiKey = "b6185cbe079502c701acd1e10d6a6de8";
 
+// add a sort by to get only most relevant? Can't figure out how aylien would sort by relevancy
 var opts = {
   'sortBy': 'social_shares_count.facebook',
   'sourceName': ["BBC", "CNN", "Fox News"],
@@ -22,7 +23,6 @@ var opts = {
   'publishedAtEnd': 'NOW',
   'perPage': 2,
   '_return': ["title", "author", "body", "links", "media", "published_at"]
-  // '_return': ["title", "author", "publishedAt", "body", "links", "media"]
 };
 
 //my-route/api/stories
