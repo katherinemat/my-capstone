@@ -19,7 +19,10 @@ var opts = {
   'sortBy': 'social_shares_count.facebook',
   'sourceName': ["BBC", "CNN", "Fox News"],
   'publishedAtStart': 'NOW-1DAYS',
-  'publishedAtEnd': 'NOW'
+  'publishedAtEnd': 'NOW',
+  'perPage': 2,
+  '_return': ["title", "author", "body", "links", "media", "published_at"]
+  // '_return': ["title", "author", "publishedAt", "body", "links", "media"]
 };
 
 //my-route/api/stories
