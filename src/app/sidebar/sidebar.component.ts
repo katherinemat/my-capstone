@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { StoryService } from '../story.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { StoryService } from '../story.service';
 })
 
 export class SidebarComponent implements OnInit {
+  @Output() doneSavePreferences = new EventEmitter();
+
   options = [
     {name:'CNN', value:'CNN', checked:false},
     {name:'BBC', value:'BBC', checked:false},
@@ -37,6 +39,7 @@ ngOnInit() {
 
 getStories() {
   this.storyService.getStories();
+  this.doneSavePreferences.emit();
 }
 
 }
