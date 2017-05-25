@@ -14,9 +14,12 @@ export class StoryService {
       .then((res) => {
         for (var i = 0; i < res.data.stories.length; i++) {
           var story = res.data.stories[i];
+          // knex('stories').insert([
+          //   {title: story.title, author: story.author.name, date: story.publishedAt, content: story.body}
+          // ])
           console.log(story.title);
           console.log(story.author.name);
-          console.log(story.body);
+          // console.log(story.body);
           console.log(story.links.permalink);
           console.log(story.publishedAt);
         }

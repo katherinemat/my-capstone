@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const knex = require('../../knex');
 
 var AylienNewsApi = require('aylien-news-api');
 
@@ -28,6 +29,13 @@ var opts = {
 //my-route/api/stories
 router.get('/stories', (req, res) => {
   apiInstance.listStories(opts, (error, data, response) => {
+    for (var i = 0; i < data.stories.length; i++) {
+      console.log(data.stories[i].title);
+      var story = data.stories[i];
+      knex('stories').insert([
+        {title: story.title, author: story.author.name, date: story.publishedAt, content: story.body}
+      ])
+    }
     res.send(data);
   })
 });
