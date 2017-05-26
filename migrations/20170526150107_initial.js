@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
 
         knex.schema.createTable('users', function(table) {
-            table.increments('id').primary();
+            table.increments();
             table.string('username');
             table.string('password')
                  .notNullable();
@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
         }),
 
         knex.schema.createTable('users_stories', function(table) {
-          table.increments('id').primary();
+          table.increments();
           table.integer('user_id')
                .references('id')
                .inTable('users');
@@ -24,19 +24,20 @@ exports.up = function(knex, Promise) {
         }),
 
         knex.schema.createTable('stories', function(table){
-            table.increments('id').primary();
+            table.increments();
             table.string('title');
             table.string('author');
             table.date('date');
-            table.string('content');
+            //this won't actually update the db. why?
+            table.string('link');
         })
     ])
 };
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-        knex.schema.dropTable('users'),
-        knex.schema.dropTable('users_stories'),
-        knex.schema.dropTable('stories')
-    ])
+      knex.schema.dropTable('users'),
+      knex.schema.dropTable('users_stories'),
+      knex.schema.dropTable('stories')
+  ])
 };

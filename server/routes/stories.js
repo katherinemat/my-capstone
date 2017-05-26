@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../../knex');
+// const knex = require('knex')(knexConfig);
 
 var AylienNewsApi = require('aylien-news-api');
 
@@ -28,15 +29,24 @@ var opts = {
 
 //my-route/api/stories
 router.get('/stories', (req, res) => {
+  const knex = require('../../knex');
   apiInstance.listStories(opts, (error, data, response) => {
-    for (var i = 0; i < data.stories.length; i++) {
-      console.log(data.stories[i].title);
-      var story = data.stories[i];
-      knex('stories').insert([
-        {title: story.title, author: story.author.name, date: story.publishedAt, content: story.body}
-      ])
-    }
     res.send(data);
+  })
+});
+
+router.post('/saveStories', (req, res) => {
+  const { newTitle, newAuthor, newDate, newLink } = req.body;
+  knex('stories').returning('id').insert([
+    //change content column's name. don't know how. do i have to make a new migration?
+    {title: newTitle, author: newAuthor, date: newDate, link: newLink}
+  ])
+  .then((ids) => {
+    console.log(ids);
+    res.send(ids);
+  })
+  .catch((err) => {
+    console.log(err);
   })
 });
 
