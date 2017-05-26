@@ -29,7 +29,6 @@ var opts = {
 
 //my-route/api/stories
 router.get('/stories', (req, res) => {
-  const knex = require('../../knex');
   apiInstance.listStories(opts, (error, data, response) => {
     res.send(data);
   })
@@ -38,12 +37,20 @@ router.get('/stories', (req, res) => {
 router.post('/saveStories', (req, res) => {
   const { newTitle, newAuthor, newDate, newLink } = req.body;
   knex('stories').returning('id').insert([
-    //change content column's name. don't know how. do i have to make a new migration?
     {title: newTitle, author: newAuthor, date: newDate, link: newLink}
   ])
   .then((ids) => {
-    console.log(ids);
     res.send(ids);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+});
+
+router.get('/displayStories', (req, res) => {
+  knex.select().table('stories')
+  .then((stories) => {
+    res.send(stories);
   })
   .catch((err) => {
     console.log(err);

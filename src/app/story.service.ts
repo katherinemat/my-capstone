@@ -23,11 +23,14 @@ export class StoryService {
           .then(function (res) {
             console.log(res);
           });
-          // knex('stories').insert([
-          //   {title: story.title, author: story.author.name, date: story.publishedAt, content: story.body}
-          // ])
-          // console.log(story.body);
         }
       });
+  }
+
+  displayStories() {
+    axios.get('/api/displayStories')
+    .then((res) => {
+      console.log(res);
+    });
   }
 }
