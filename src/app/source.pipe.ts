@@ -7,22 +7,22 @@ import { Story } from './story.model';
 })
 export class SourcePipe implements PipeTransform {
 
-  transform(input: Story[], source) {
+  transform(input: Story[], source: string[]) {
     var output: Story[] = [];
-    if(source === "CNN") {
+    if (source.indexOf("CNN") > -1) {
       for(var i = 0; i < input.length; i++) {
         if (input[i].source === "CNN") {
           output.push(input[i]);
         }
       }
-      return output;
-    } else if(source === "BBC") {
+    }
+    if (source.indexOf("BBC") > -1) {
       for(var i = 0; i < input.length; i++) {
         if (input[i].source === "BBC") {
           output.push(input[i]);
         }
       }
-      return output;
     }
+    return output;
   }
 }

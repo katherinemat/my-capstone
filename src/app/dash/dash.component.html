@@ -11,7 +11,7 @@
 </nav>
 
 <div *ngIf="sidebar" class="sidebar">
-  <app-sidebar (doneSavePreferences)="showSidebar()"></app-sidebar>
+  <app-sidebar (doneSavePreferences)="showSidebar()" (changeSources)="setPipe($event)"></app-sidebar>
 </div>
 
 <a class="preferences-form waves-effect waves-teal btn-flat" (click)="displayStories()">DISPLAY STORIES</a>

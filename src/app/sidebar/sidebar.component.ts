@@ -10,6 +10,7 @@ import { StoryService } from '../story.service';
 
 export class SidebarComponent implements OnInit {
   @Output() doneSavePreferences = new EventEmitter();
+  @Output() changeSources = new EventEmitter();
 
   options = [
     {name:'CNN', value:'CNN', checked:false},
@@ -26,20 +27,36 @@ export class SidebarComponent implements OnInit {
     {name:'Yahoo', value:'Yahoo', checked:false}
   ]
 
+  selectedSources = [];
+
   get selectedOptions() {
     return this.options
     .filter(opt => opt.checked)
     .map(opt => opt.value)
   }
 
-constructor(private storyService: StoryService) { }
+  constructor(private storyService: StoryService) { }
 
-ngOnInit() {
-}
+  ngOnInit() {
+  }
 
-getStories() {
-  this.storyService.getStories();
-  this.doneSavePreferences.emit();
-}
+  getStories() {
+    this.storyService.getStories();
+    this.doneSavePreferences.emit();
+  }
+
+  onChange() {
+    this.selectedSources = [];
+    for(let i of this.options) {
+      if (i.checked === true) {
+        this.selectedSources.push(i.name);
+      }
+    }
+    this.changeSources.emit(this.selectedSources);
+  }
+
+  sendPreferences() {
+
+  }
 
 }

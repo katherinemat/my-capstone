@@ -3,7 +3,7 @@
   <form>
     <h4 id="preferences-form-sources">SOURCES</h4>
     <hr>
-    <div *ngFor="let option of options">
+    <div *ngFor="let option of options" (change)="onChange()">
             <input type="checkbox"
                    name="options"
                    value="{{option.value}}"
