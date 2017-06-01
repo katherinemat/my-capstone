@@ -16,9 +16,21 @@
 
 <a class="preferences-form waves-effect waves-teal btn-flat" (click)="displayStories()">DISPLAY STORIES</a>
 
-<div *ngFor="let story of stories">
-  <h2 (click)="navigate(story.link)">{{story.title}}</h2>
-  <p>{{story.author}}</p>
-  <p>{{story.date}}</p>
-  <p>{{story.author}}</p>
+<div class="row">
+  <div class="story-tile" *ngFor="let story of stories">
+    <div class="col s6 m4 l3">
+      <div class="card small">
+        <div class="card-image">
+          <img src={{story.img}}>
+          <span class="card-title">{{story.title}}</span>
+        </div>
+        <div class="card-content">
+          <p>{{story.content}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#"  (click)="navigate(story.link)">source</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
