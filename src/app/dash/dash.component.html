@@ -15,3 +15,10 @@
 </div>
 
 <a class="preferences-form waves-effect waves-teal btn-flat" (click)="displayStories()">DISPLAY STORIES</a>
+
+<div *ngFor="let story of stories">
+  <h2 (click)="navigate(story.link)">{{story.title}}</h2>
+  <p>{{story.author}}</p>
+  <p>{{story.date}}</p>
+  <p>{{story.author}}</p>
+</div>
