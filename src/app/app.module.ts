@@ -7,12 +7,14 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { DashComponent } from './dash/dash.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SourcePipe } from './source.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashComponent,
-    SidebarComponent
+    SidebarComponent,
+    SourcePipe
   ],
   imports: [
     BrowserModule,
