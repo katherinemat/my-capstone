@@ -25,11 +25,13 @@ exports.up = function(knex, Promise) {
 
         knex.schema.createTable('stories', function(table){
             table.increments();
+            table.string('source');
             table.string('title');
             table.string('author');
             table.date('date');
-            //this won't actually update the db. why?
             table.string('link');
+            table.string('img');
+            table.string('content');
         })
     ])
 };
