@@ -27,10 +27,17 @@ export class StoryService {
       });
   }
 
+//having trouble accessing this function from component because component thinks this returns void with .then and returns type AxiosPromise if I just return axios.get
   displayStories() {
-    axios.get('/api/displayStories')
-    .then((res) => {
-      console.log(res);
-    });
+    // return axios.get('/api/displayStories');
+    // let response = [];
+    return axios.get('/api/displayStories')
+      .then((res) => {
+        console.log(res.data);
+        // response = res;
+        return res.data;
+      });
+
+    // return response;
   }
 }

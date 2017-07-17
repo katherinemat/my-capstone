@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 //how do same parameters ('/api') return different files?
 app.use('/api', require('./routes/test'));
 app.use('/api', require('./routes/stories'));
+app.use('/api', require('./routes/police'));
 
 //use the dist folder
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
