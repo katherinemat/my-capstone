@@ -17,4 +17,6 @@ Next: figure out why on page load stories don't display
 
 ***Role: katherinematthews, normal password; production, password: production
 
+- can't import service into another service without doing something weird to app.module
+
 What if I use the officer shooting table in seattle open data and then cross reference the description provided with an interpretation by watson. How many negative words used? maybe beneficial because want to keep description neutral? How have descriptions changed over time? do they get longer? do they include more detail?
