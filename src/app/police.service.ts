@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { TransformDatabaseObjectsService } from './transform-database-objects.service';
 import { OfficerInvolvedShooting } from './officer-involved-shooting.model';
 
 
 @Injectable()
 export class PoliceService {
 
+  transformedOfficerInvolvedShootings = [];
   constructor() { }
 
   getPoliceData() {
@@ -19,15 +19,14 @@ export class PoliceService {
   }
 
   getPoliceDataFromSocrata() {
-    axios.get('https://data.seattle.gov/resource/89ww-kmca.json')
+    return axios.get('https://data.seattle.gov/resource/89ww-kmca.json')
       .then((res) => {
+        //transforms database objects into OfficerInvolvedShooting objects. I do this in case we want to exclude or manipulate data in between the database and the front-end
         res.data.forEach(object => {
-          res.data.object = new OfficerInvolvedShooting(object);
-          console.log(res.data.object);
+          this.transformedOfficerInvolvedShootings.push(new OfficerInvolvedShooting(object));
         })
-        // return res;
-        // let x = this.transformDatabaseObjectsService.transformOfficerInvolvedShootings(res);
-        // console.log(x);
+        console.log(this.transformedOfficerInvolvedShootings);
+        return this.transformedOfficerInvolvedShootings;
       });
   }
 }

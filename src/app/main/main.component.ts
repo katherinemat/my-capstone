@@ -8,6 +8,7 @@ import { PoliceService } from '../police.service';
   providers: [PoliceService]
 })
 export class MainComponent implements OnInit {
+  public OfficerInvolvedShootings;
 
   constructor(private policeService: PoliceService) { }
 
@@ -15,7 +16,11 @@ export class MainComponent implements OnInit {
     this.getPoliceData();
   }
   getPoliceData() {
-    this.policeService.getPoliceDataFromSocrata();
+     this.policeService.getPoliceDataFromSocrata().then(servicePromise => this.OfficerInvolvedShootings = servicePromise);
+  }
+
+  test() {
+    console.log(this.OfficerInvolvedShootings);
   }
 
 }
