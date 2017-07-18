@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+/*TODO: change these classes to be more specific, especially if all graph styling has to exist in this shared stylesheet*/
+.bar {
+    display: block;
+    width: 75px;
+    height: 20px;   /* We'll override this later */
+    background-color: teal;
+    margin-top: 2px;
+}

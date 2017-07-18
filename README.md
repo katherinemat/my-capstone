@@ -9,7 +9,9 @@ Specs:
 8. Add authorization so that users can sign in and their info will be added to user table
 9.
 
-Next: figure out why on page load stories don't display
+
+#Quirks specific to my project
+1. styles for d3 graphs must be inside global styles.css, instead of inside each component's .css file. This is because d3 dynamically creates HTML and Angular doesn't apply component-specific styles because it doesn't sense the changes that d3 makes to the dom
 
 *In order to test api calls to my server, need to host this application with nodemon on localhost:3000 because angular doesn't grab the backend (npm start). Make sure to ng build application first, so that typescript compiles and all the build files go into the right place
 
