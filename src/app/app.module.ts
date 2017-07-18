@@ -9,6 +9,7 @@ import { DashComponent } from './dash/dash.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SourcePipe } from './source.pipe';
 import { MainComponent } from './main/main.component';
+import { GraphsComponent } from './graphs/graphs.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MainComponent } from './main/main.component';
     DashComponent,
     SidebarComponent,
     SourcePipe,
-    MainComponent
+    MainComponent,
+    GraphsComponent
   ],
   imports: [
     BrowserModule,

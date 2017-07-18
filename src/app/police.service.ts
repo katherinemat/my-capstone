@@ -13,7 +13,6 @@ export class PoliceService {
     // change this url when project is deployed to the actual url
     axios.get('/api/officer-related-shootings')
       .then((res) => {
-        console.log(res);
         return res;
       });
   }
@@ -25,7 +24,6 @@ export class PoliceService {
         res.data.forEach(object => {
           this.transformedOfficerInvolvedShootings.push(new OfficerInvolvedShooting(object));
         })
-        console.log(this.transformedOfficerInvolvedShootings);
         return this.transformedOfficerInvolvedShootings;
       });
   }
