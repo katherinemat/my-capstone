@@ -10,6 +10,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SourcePipe } from './source.pipe';
 import { MainComponent } from './main/main.component';
 import { GraphsComponent } from './graphs/graphs.component';
+import { ScatterplotComponent } from './scatterplot/scatterplot.component';
+import { BarComponent } from './bar/bar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { GraphsComponent } from './graphs/graphs.component';
     SidebarComponent,
     SourcePipe,
     MainComponent,
-    GraphsComponent
+    GraphsComponent,
+    ScatterplotComponent,
+    BarComponent
   ],
   imports: [
     BrowserModule,

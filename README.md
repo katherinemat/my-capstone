@@ -8,6 +8,7 @@ Specs:
 - Put each graph into its own component
 - Move data returned by Socrata into psql database (to limit API calls so that don't query Socrata every time page loads)
 - Check for updates to socrata data everyday at a certain time and if the info has changed, update psql database
+- Delete superfluous components and code
 
 
 #Quirks specific to my project

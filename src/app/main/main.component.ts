@@ -4,23 +4,13 @@ import { PoliceService } from '../police.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
-  providers: [PoliceService]
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  public OfficerInvolvedShootings;
 
-  constructor(private policeService: PoliceService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getPoliceData();
-  }
-  getPoliceData() {
-     this.policeService.getPoliceDataFromSocrata().then(servicePromise => this.OfficerInvolvedShootings = servicePromise);
-  }
-
-  test() {
-    console.log(this.OfficerInvolvedShootings);
   }
 
 }
