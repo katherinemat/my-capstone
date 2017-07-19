@@ -28,6 +28,12 @@ export class BarComponent implements OnInit {
     //declared locally because some d3 functions can't reach all the way out to component properties
     var graphData = this.OfficerInvolvedShootingsGraphData;
 
+    var xScale = d3.scaleLinear()
+                   .domain([0, d3.max(graphData, function(d) {
+                     return d.summary.length;
+                   })])
+                   .range([0, w]);
+
     var svg = d3.select("#summary-length-graph")
                 .append("svg")
                 .attr("width", w)
@@ -43,7 +49,7 @@ export class BarComponent implements OnInit {
           return i * (h / graphData.length);
         })
         .attr("width", function(d) {
-          return d.summary.length / 10;
+          return xScale(d.summary.length);
         })
         .attr("height", function() {
           return h / graphData.length - barPadding;
@@ -58,7 +64,7 @@ export class BarComponent implements OnInit {
           return d.summary.length;
         })
         .attr("x", function(d) {
-          return d.summary.length / 10;
+          return xScale(d.summary.length) - 30;
         })
         .attr("y", function(d, i) {
           return (i + 1) * (h / graphData.length);

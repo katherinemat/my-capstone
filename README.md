@@ -33,4 +33,5 @@ the first argument is the variable containing all the information we want to plu
   }")
 the key function is called for each existing element and for each piece of data
 - update, exit, and enter are all things that can happen when you join data to elements. update is if the data key matches an existing element. exit is if old elements have keys that no longer match any data. enter is for new pieces of data that don't find an element with a matching key. Placeholder dom elements are eventually replaced by correct elements by enter.select. Critical to use selection.selectAll prior to data join because it establishes parent node for entering elements
-- enter.append replaces null elements in update selection with newly-created elements from the enter selection.  
+- enter.append replaces null elements in update selection with newly-created elements from the enter selection.
+- scale = d3.scale.linear().domain([0, 100]).range([0, 1]); .domain represents the spectrum of possible inputs and .range represents the spectrum of possible outputs. numbers within domain will map to numbers within range

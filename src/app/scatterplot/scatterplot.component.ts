@@ -26,6 +26,12 @@ export class ScatterplotComponent implements OnInit {
     var w = 800;
     var graphData = this.OfficerInvolvedShootingsGraphData;
 
+    var yScale = d3.scaleLinear()
+                   .domain([0, d3.max(graphData, function(d) {
+                     return d.subjectAge;
+                   })])
+                   .range([0, h]);
+
     var svg = d3.select("#subject-age-graph")
                 .append("svg")
                 .attr("width", w)
@@ -39,7 +45,7 @@ export class ScatterplotComponent implements OnInit {
          return i * (w / graphData.length);
        })
        .attr("cy", function(d) {
-         return h - (d.subjectAge * 4);
+         return h - (yScale(d.subjectAge));
        })
        .attr("r", 5);
 
@@ -54,7 +60,7 @@ export class ScatterplotComponent implements OnInit {
          return i * (w / graphData.length);
        })
        .attr("y", function(d) {
-         return h - (d.subjectAge * 4);
+         return h - (yScale(d.subjectAge));
        })
   }
 }
