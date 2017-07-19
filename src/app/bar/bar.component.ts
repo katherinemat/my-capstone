@@ -50,6 +50,18 @@ export class BarComponent implements OnInit {
       })
       .attr("fill", "teal");
 
+    svg.selectAll("text")
+      .data(testData)
+      .enter()
+      .append("text")
+      .text(function(d, i) {
+        return d.summary.length;
+      })
+      .attr("x", 0)
+      .attr("y", function(d, i) {
+        return (i + 1) * (h / testData.length);
+      });
+
     // svg.selectAll("circle")
     //   .data(this.testData)
     //   .enter()
