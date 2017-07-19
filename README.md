@@ -2,12 +2,12 @@ Specs:
 1. Connect to API
 2. Have application pull from socrata once in app.component
 3. Create objects with data pulled from API
-4. Show all objects on main page
-5. Create filter to only show news stories from selected sources
-6. Style sidebar so that overlaps with stories instead of pushing them to the side
-7. Pull story objects from database on page load
-8. Add authorization so that users can sign in and their info will be added to user table
-9.
+4. Make simple graph with d3
+- Add labels to chart
+- Convert simple graph into svg to accommodate shapes and screen resizes
+- Put each graph into its own component
+- Move data returned by Socrata into psql database (to limit API calls so that don't query Socrata every time page loads)
+- Check for updates to socrata data everyday at a certain time and if the info has changed, update psql database
 
 
 #Quirks specific to my project

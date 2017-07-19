@@ -3,7 +3,7 @@
 .bar {
     display: block;
     width: 75px;
-    height: 20px;   /* We'll override this later */
+    height: 16px;   /* We'll override this later */
     background-color: teal;
     margin-top: 2px;
 }
