@@ -3,7 +3,13 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/dashboard_dev'
+    connection: {
+      host: 'localhost',
+      user: 'production',
+      password: 'production',
+      database: 'test_capstone'
+    }
+    // connection: 'postgres://localhost/dashboard_dev'
   },
   production: {
     client: 'pg',

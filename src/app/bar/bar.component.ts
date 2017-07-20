@@ -34,7 +34,7 @@ export class BarComponent implements OnInit {
                    })])
                    .range([0, w]);
 
-    var svg = d3.select("#summary-length-graph")
+    var svg = d3.select("#test-bar")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);

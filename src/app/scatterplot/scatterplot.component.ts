@@ -24,15 +24,31 @@ export class ScatterplotComponent implements OnInit {
   d3SvgScatterplot() {
     var h = 500;
     var w = 800;
+    var padding = 30;
     var graphData = this.OfficerInvolvedShootingsGraphData;
 
     var yScale = d3.scaleLinear()
                    .domain([0, d3.max(graphData, function(d) {
                      return d.subjectAge;
                    })])
-                   .range([0, h]);
+                   .range([padding, h - padding]);
 
-    var svg = d3.select("#subject-age-graph")
+    var xScale = d3.scaleLinear()
+                   .domain([0, d3.max(graphData, function(d, i) {
+                     return i;
+                   })])
+                   .range([padding, w - padding]);
+
+    //consider adding .clamp(true) in order to take any numbers outside the domain and force them to round to the nearest high or low value. or clamp() lets scale return numbers outside a range if a number is outside the given domain
+    var rScale = d3.scaleLinear()
+                   .domain([0, d3.max(graphData, function(d) {
+                     return d.subjectAge;
+                   })])
+                   .range([2, 5]);
+
+    var yAxis = d3.axisLeft(yScale);
+
+    var svg = d3.select("#test-scatterplot")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
@@ -42,12 +58,14 @@ export class ScatterplotComponent implements OnInit {
        .enter()
        .append("circle")
        .attr("cx", function(d, i) {
-         return i * (w / graphData.length);
+         return xScale(i);
        })
        .attr("cy", function(d) {
          return h - (yScale(d.subjectAge));
        })
-       .attr("r", 5);
+       .attr("r", function(d) {
+         return rScale(d.subjectAge);
+       });
 
     svg.selectAll("text")
        .data(graphData)
@@ -57,10 +75,15 @@ export class ScatterplotComponent implements OnInit {
          return d.subjectAge;
        })
        .attr("x", function(d, i) {
-         return i * (w / graphData.length);
+         return xScale(i);
        })
        .attr("y", function(d) {
          return h - (yScale(d.subjectAge));
-       })
+       });
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + (padding) + ", 0)")
+       .call(yAxis);
   }
 }
