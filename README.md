@@ -17,12 +17,13 @@ Specs:
 
 - can't import service into another service without doing something weird to app.module
 - In order to call service from component that executes axios get request, in component, need to use .then() and need to return entire axios get request
+- I save returned information from socrata to psql database in order to perform queries to get data more complicated than just a list of objects, such as count, max, min, sort, etc.
 
 What if I use the officer shooting table in seattle open data and then cross reference the description provided with an interpretation by watson. How many negative words used? maybe beneficial because want to keep description neutral? How have descriptions changed over time? do they get longer? do they include more detail?
 
 ------------------------------------------------------------------------
 Notes on psql:
--1st thing to do is in terminal, type 'postgres' to start the psql server. Then, in another terminal tab, type 'psql postgres' and '\q' to switch in and out of psql command line. To go into specific database, type 'psql db-name'. 
+-1st thing to do is in terminal, type 'postgres' to start the psql server. Then, in another terminal tab, type 'psql postgres' and '\q' to switch in and out of psql command line. To go into specific database, type 'psql db-name'.
 
 *In order to test api calls to my server, need to host this application with nodemon on localhost:3000 because angular doesn't grab the backend (npm start). Make sure to ng build application first, so that typescript compiles and all the build files go into the right place
 
@@ -30,6 +31,11 @@ Notes on psql:
 
 ------------------------------------------------------------------------
 
+Notes on knex:
+- Migrations are finicky. Always just rollback migrations after they happen so that knex_migrations table doesn't hold onto migration files that no longer are pertinent.
+- knexfile.js establishes connection to database.
+
+------------------------------------------------------------------------
 Notes on d3:
 - d3.selectAll("div").data(letters, name);
 the first argument is the variable containing all the information we want to plug in as data (in this case, an array of letter objects). the second argument is a key function that declares a property other than the index position as the key to use when matching data pieces with dom elements. (in this example, key function: "function name(d) {

@@ -20,6 +20,7 @@ export class GraphsComponent implements OnInit {
     this.getPoliceData();
   }
   getPoliceData() {
-     this.policeService.getPoliceDataFromSocrata().then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
+     this.policeService.getPoliceDataFromSocrata();
+    //  .then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
   }
 }
