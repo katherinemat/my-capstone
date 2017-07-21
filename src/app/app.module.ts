@@ -12,6 +12,7 @@ import { MainComponent } from './main/main.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { ScatterplotComponent } from './scatterplot/scatterplot.component';
 import { BarComponent } from './bar/bar.component';
+import { SubjectAgeGroupComponent } from './subject-age-group/subject-age-group.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BarComponent } from './bar/bar.component';
     MainComponent,
     GraphsComponent,
     ScatterplotComponent,
-    BarComponent
+    BarComponent,
+    SubjectAgeGroupComponent
   ],
   imports: [
     BrowserModule,

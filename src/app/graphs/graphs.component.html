@@ -2,11 +2,8 @@
   getPoliceDataFromSocrata
 </p>
 
-<p (click)="getPoliceDataFromPsqlDB()">
-  getPoliceDataFromPsqlDB
-</p>
-
-
-<app-scatterplot [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData"></app-scatterplot>
+<app-scatterplot [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" [SubjectAgeGroupGraphData]="SubjectAgeGroupGraphData"></app-scatterplot>
 
 <app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData"></app-bar>
+
+<app-subject-age-group [SubjectAgeGroupGraphData]="SubjectAgeGroupGraphData"></app-subject-age-group>

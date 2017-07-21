@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
+import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
+import { SubjectAgeGroup } from '../subject-age-group.model';
 import { PoliceService } from '../police.service';
 
 @Component({
@@ -13,11 +14,15 @@ import { PoliceService } from '../police.service';
 export class GraphsComponent implements OnInit {
 
   public OfficerInvolvedShootingsGraphData;
+  public SubjectAgeGroupGraphData;
 
   constructor(private policeService: PoliceService) { }
 
   ngOnInit() {
+    this.getPoliceDataFromPsqlDB();
+    this.getGroupedSubjectAges();
   }
+
   getPoliceDataFromSocrata() {
      this.policeService.getPoliceDataFromSocrata();
   }
@@ -25,6 +30,10 @@ export class GraphsComponent implements OnInit {
   getPoliceDataFromPsqlDB() {
     this.policeService.getPoliceDataFromPsqlDB()
     .then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
-    console.log(this.OfficerInvolvedShootingsGraphData);
+  }
+
+  getGroupedSubjectAges() {
+    this.policeService.getGroupedSubjectAges()
+    .then(servicePromise => this.SubjectAgeGroupGraphData = servicePromise);
   }
 }
