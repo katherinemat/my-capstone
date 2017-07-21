@@ -4,10 +4,6 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../../knex');
 
-router.get('/officer-related-shootings', (req, res) => {
-  res.send('police data');
-});
-
 router.post('/save-officer-related-shootings-to-psql-database', (req, res) => {
   // const { newTitle, newAuthor, newDate, newLink } = req.body;
   knex('officer_involved_shootings').returning('id').insert([
@@ -43,6 +39,16 @@ router.post('/save-officer-related-shootings-to-psql-database', (req, res) => {
   ])
   .then((ids) => {
     res.send(ids);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+});
+
+router.get('/get-officer-related-shootings-from-psql-database', (req, res) => {
+  knex.select().table('officer_involved_shootings')
+  .then((shootings) => {
+    res.send(shootings);
   })
   .catch((err) => {
     console.log(err);

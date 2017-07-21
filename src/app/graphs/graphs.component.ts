@@ -17,10 +17,14 @@ export class GraphsComponent implements OnInit {
   constructor(private policeService: PoliceService) { }
 
   ngOnInit() {
-    this.getPoliceData();
   }
-  getPoliceData() {
+  getPoliceDataFromSocrata() {
      this.policeService.getPoliceDataFromSocrata();
-    //  .then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
+  }
+
+  getPoliceDataFromPsqlDB() {
+    this.policeService.getPoliceDataFromPsqlDB()
+    .then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
+    console.log(this.OfficerInvolvedShootingsGraphData);
   }
 }

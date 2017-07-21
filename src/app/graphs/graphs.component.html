@@ -1,6 +1,11 @@
-<p>
-  graphs works!
+<p (click)="getPoliceDataFromSocrata()">
+  getPoliceDataFromSocrata
 </p>
+
+<p (click)="getPoliceDataFromPsqlDB()">
+  getPoliceDataFromPsqlDB
+</p>
+
 
 <app-scatterplot [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData"></app-scatterplot>
 

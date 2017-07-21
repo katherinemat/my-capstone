@@ -9,28 +9,27 @@ export class PoliceService {
   transformedOfficerInvolvedShootings = [];
   constructor() { }
 
-  getPoliceData() {
-    // change this url when project is deployed to the actual url
-    axios.get('/api/officer-related-shootings')
-      .then((res) => {
-        return res;
-      });
-  }
-
   getPoliceDataFromSocrata() {
     return axios.get('https://data.seattle.gov/resource/89ww-kmca.json')
-      .then((res) => {
-        //transforms database objects into OfficerInvolvedShooting objects. I do this in case we want to exclude or manipulate data in between the database and the front-end
-        console.log(res.data[0]);
-        res.data.forEach(object => {
-          axios.post('/api/save-officer-related-shootings-to-psql-database', res.data[0])
-          .then(function (res) {
-            console.log(res);
-          });
-          // var story = res.data.stories[i];
-          // this.transformedOfficerInvolvedShootings.push(new OfficerInvolvedShooting(object));
-        })
-        // return this.transformedOfficerInvolvedShootings;
-      });
+    .then((res) => {
+      //saves data returned in json to postgres database
+      res.data.forEach(object => {
+        axios.post('/api/save-officer-related-shootings-to-psql-database', object)
+        .then(function(res) {
+          console.log(object)
+        });
+      })
+    });
+  }
+
+  getPoliceDataFromPsqlDB() {
+    return axios.get('/api/get-officer-related-shootings-from-psql-database')
+    .then((res) => {
+      //transforms database objects into OfficerInvolvedShooting objects. I do this in case we want to exclude or manipulate data in between the database and the front-end
+      res.data.forEach(object => {
+        this.transformedOfficerInvolvedShootings.push(new OfficerInvolvedShooting(object));
+      })
+      return this.transformedOfficerInvolvedShootings;
+    });
   }
 }
