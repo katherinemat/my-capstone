@@ -54,6 +54,22 @@ export class SubjectAgeGroupComponent implements OnInit {
        .attr("cy", 250)
        .attr("r", function(d) {
          return rScale(d.count);
-       });
+       })
+       .on("mouseover", function(){
+         d3.select(this).style("fill", "green");
+       })
+       .on("mouseout", function(){
+         d3.select(this).style("fill", "black");
+       })
+       .on("mousedown", function(){
+         d3.select(this).transition()
+                        .delay(0)
+                        .duration(1000)
+                        .attr("cy", 100)
+         d3.select(this).transition()
+                        .delay(1000)
+                        .attr("cy", 250);
+       })
+
   }
 }
