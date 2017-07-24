@@ -65,7 +65,27 @@ export class BarComponent implements OnInit {
         .attr("height", function(d) {
           return yScale(d.summary.length) - padding;
         })
-        .attr("fill", "teal");
+        .attr("fill", "teal")
+        .on("mouseover", handleMouseOver)
+        .on("mouseout", handleMouseOut);
+
+    function handleMouseOver(d, i) {
+      d3.select(this).attr("fill", "orange");
+
+      svg.append("text")
+         .attr("id", "mouse-over-text")
+         .attr("x", w / 2)
+         .attr("y", 50)
+         .text(function() {
+           return d.summary.length;
+         });
+    }
+
+    function handleMouseOut(d, i) {
+      d3.select(this).attr("fill", "teal");
+
+      d3.select("#mouse-over-text").remove();
+    }
 
     svg.append("g")
        .attr("class", "axis")
