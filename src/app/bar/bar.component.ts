@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 
@@ -9,20 +9,33 @@ import * as d3 from 'd3';
 })
 export class BarComponent implements OnInit {
   @Input() OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
-  public testData = [5, 10, 13, 19, 11];
+  // @ViewChild('test-bar') div;
+  public graphElement;
 
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
-    setTimeout(() => this.d3SvgBarHorizontal(), 1000);
+    this.graphElement = this.elementRef.nativeElement.querySelector('div');
+    console.log(this.graphElement);
+
+    setTimeout(() => this.d3SvgBarHorizontal(this.graphElement.clientWidth), 1000);
+  }
+
+  // ngAfterViewInit() {
+  //   console.log(this.graphElement);
+  // }
+
+  onResize(event) {
+    this.d3SvgBarHorizontal(event.target.innerWidth);
   }
 
   test() {
     console.log(this.OfficerInvolvedShootingsGraphData);
   }
 
-  d3SvgBarHorizontal() {
-    var w = 800;
+  d3SvgBarHorizontal(graphWidth) {
+    var w = graphWidth;
+    // var w = this.graphElement.clientWidth;
     var h = 300;
     var padding = 20;
     var barPadding = 1;
@@ -44,6 +57,7 @@ export class BarComponent implements OnInit {
     var xAxis = d3.axisBottom(xScale);
 
     var svg = d3.select("#test-bar")
+                .html("")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
