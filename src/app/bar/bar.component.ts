@@ -14,11 +14,71 @@ export class BarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    setTimeout(() => this.d3SvgBarHorizontal(), 1000);
   }
 
   test() {
     console.log(this.OfficerInvolvedShootingsGraphData);
-    this.d3SvgBar();
+  }
+
+  d3SvgBarHorizontal() {
+    var w = 800;
+    var h = 300;
+    var barPadding = 1;
+    //declared locally because some d3 functions can't reach all the way out to component properties
+    var graphData = this.OfficerInvolvedShootingsGraphData;
+
+    var yScale = d3.scaleLinear()
+                   .domain([0, d3.max(graphData, function(d) {
+                     return d.summary.length;
+                   })])
+                   .range([0, h]);
+
+    var xScale = d3.scaleTime()
+                   .domain([new Date(2005, 0, 1), new Date(2017, 0, 1)])
+                   .range([0, w]);
+
+    var svg = d3.select("#test-bar")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+    console.log(xScale.invert(200));
+    console.log(xScale(new Date(2006, 0, 1, 5)));
+
+    svg.selectAll("rect")
+        .data(graphData)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {
+          console.log(new Date(d.date));
+          return xScale(new Date(d.date));
+        })
+        .attr("y", function(d, i) {
+          // return w - (d * 4);
+          return h - yScale(d.summary.length);
+        })
+        .attr("width", function(d) {
+          return w / graphData.length - barPadding;
+        })
+        .attr("height", function(d) {
+          return yScale(d.summary.length);
+        })
+        .attr("fill", "teal");
+
+    // svg.selectAll("text")
+    //     .data(graphData)
+    //     .enter()
+    //     .append("text")
+    //     .text(function(d, i) {
+    //       return d.summary.length;
+    //     })
+    //     .attr("x", function(d) {
+    //       return xScale(d.summary.length) - 30;
+    //     })
+    //     .attr("y", function(d, i) {
+    //       return (i + 1) * (h / graphData.length);
+    //     });
   }
 
   d3SvgBar() {
@@ -69,43 +129,5 @@ export class BarComponent implements OnInit {
         .attr("y", function(d, i) {
           return (i + 1) * (h / graphData.length);
         });
-
-    // svg.selectAll("circle")
-      //   .data(this.graphData)
-      //   .enter()
-      //   .append("circle")
-      //   //i is index position, d is piece of data
-      //   .attr("cx", function(d, i) {
-      //     return (i * 50) + 25;
-      //   })
-      //   .attr("cy", h/2)
-      //   .attr("r", function(d) {
-      //     return d;
-      //   })
-      //   .attr("fill", "yellow")
-      //   .attr("stroke", "orange")
-      //   .attr("stroke-width", function(d) {
-      //       return d/2;
-      //   });
   }
-
-  d3Html() {
-    d3.select("#outside").selectAll("div")
-      .data(this.OfficerInvolvedShootingsGraphData)
-      .enter()
-      .append("div")
-      // .text(function(d) { return d; })
-      // .style("color", function(d) {
-      //   if (d > 3) {
-      //     return "green";
-      //   } else {
-      //     return "blue";
-      //   }
-      // })
-      .attr("class", "bar")
-      .style("width", function(d) {
-        return d.summary.length / 10 + "px";
-      });
-  }
-
 }
