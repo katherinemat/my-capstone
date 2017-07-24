@@ -24,6 +24,7 @@ export class BarComponent implements OnInit {
   d3SvgBarHorizontal() {
     var w = 800;
     var h = 300;
+    var padding = 20;
     var barPadding = 1;
     //declared locally because some d3 functions can't reach all the way out to component properties
     var graphData = this.OfficerInvolvedShootingsGraphData;
@@ -32,26 +33,26 @@ export class BarComponent implements OnInit {
                    .domain([0, d3.max(graphData, function(d) {
                      return d.summary.length;
                    })])
-                   .range([0, h]);
+                   .range([padding, h - padding]);
 
     var xScale = d3.scaleTime()
-                   .domain([new Date(2005, 0, 1), new Date(2017, 0, 1)])
-                   .range([0, w]);
+                   .domain([new Date(2005, 0, 1), d3.max(graphData, function(d) {
+                     return new Date(d.date);
+                   })])
+                   .range([padding, w - padding]);
+
+    var xAxis = d3.axisBottom(xScale);
 
     var svg = d3.select("#test-bar")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
-    console.log(xScale.invert(200));
-    console.log(xScale(new Date(2006, 0, 1, 5)));
-
     svg.selectAll("rect")
         .data(graphData)
         .enter()
         .append("rect")
         .attr("x", function(d, i) {
-          console.log(new Date(d.date));
           return xScale(new Date(d.date));
         })
         .attr("y", function(d, i) {
@@ -62,9 +63,14 @@ export class BarComponent implements OnInit {
           return w / graphData.length - barPadding;
         })
         .attr("height", function(d) {
-          return yScale(d.summary.length);
+          return yScale(d.summary.length) - padding;
         })
         .attr("fill", "teal");
+
+    svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(" + padding + "," + (h - padding) + ")")
+       .call(xAxis);
 
     // svg.selectAll("text")
     //     .data(graphData)
