@@ -98,7 +98,8 @@ export class BarComponent implements OnInit {
         .attr("fill", "purple")
         .attr("fill-opacity", "0.3")
         .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+        .on("mouseout", handleMouseOut)
+        .on("click", handleClick);
 
     function handleMouseOver(d, i) {
       d3.select(this).attr("fill", "teal");
@@ -122,14 +123,19 @@ export class BarComponent implements OnInit {
        .attr("transform", "translate(" + 0 + "," + (h - padding) + ")")
        .call(xAxis);
 
-    // function update(graphData) {
-    //   xScale.domain([d3.min(graphData, function(d) {
-    //     return new Date(d.date);
-    //   }),
-    //   d3.max(graphData, function(d) {
-    //     return new Date(d.date);
-    //   })])
-    // }
+    function handleClick(d, i) {
+      let sixMonthsEarlier = new Date(d.date);
+      sixMonthsEarlier.setMonth(sixMonthsEarlier.getMonth() - 6);
+
+      let sixMonthsLater = new Date(d.date);
+      sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+
+      xScale.domain([sixMonthsEarlier, sixMonthsLater]);
+
+      d3.selectAll("rect").transition().duration(1000).attr("fill", "black")
+
+      // svg.select("axis").transition().duration(1000).call(xAxis);
+    }
 
   }
 
