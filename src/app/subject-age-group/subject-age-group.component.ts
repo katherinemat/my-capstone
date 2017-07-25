@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 import { SubjectAgeGroup } from '../subject-age-group.model';
@@ -10,19 +10,23 @@ import { SubjectAgeGroup } from '../subject-age-group.model';
 })
 export class SubjectAgeGroupComponent implements OnInit {
   @Input() SubjectAgeGroupGraphData: SubjectAgeGroup[];
-  public testData = [5, 10, 13, 19, 11];
 
-  constructor() { }
+  public graphElement;
+
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
+    this.graphElement = this.elementRef.nativeElement.querySelector('#subject-age-group-graph');
+
+    setTimeout(() => this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth), 1000);
   }
 
-  testGraph() {
-    this.d3SvgBar();
+  onResize(event) {
+    this.d3SubjectAgeGroupBubble(event.target.innerWidth);
   }
 
-  d3SvgBar() {
-    var w = 500;
+  d3SubjectAgeGroupBubble(graphWidth) {
+    var w = graphWidth;
     var h = 500;
     var padding = 10;
     var graphData = this.SubjectAgeGroupGraphData;
@@ -40,6 +44,7 @@ export class SubjectAgeGroupComponent implements OnInit {
                    .range([padding, w - padding]);
 
     var svg = d3.select("#subject-age-group-graph")
+                .html("")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);

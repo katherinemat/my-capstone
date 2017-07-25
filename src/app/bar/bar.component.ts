@@ -80,8 +80,7 @@ export class BarComponent implements OnInit {
         .attr("fill", "purple")
         .attr("fill-opacity", "0.3")
         .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut)
-        .on("click", handleClick);
+        .on("mouseout", handleMouseOut);
 
     function handleMouseOver(d, i) {
       d3.select(this).attr("fill", "teal");
@@ -105,20 +104,5 @@ export class BarComponent implements OnInit {
        .attr("transform", "translate(" + 0 + "," + (h - padding) + ")")
        .call(xAxis);
 
-    function handleClick(d, i) {
-      // let sixMonthsEarlier = new Date(d.date);
-      // sixMonthsEarlier.setMonth(sixMonthsEarlier.getMonth() - 6);
-      //
-      // let sixMonthsLater = new Date(d.date);
-      // sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
-      //
-      // xScale.domain([sixMonthsEarlier, sixMonthsLater]);
-      //
-      // d3.selectAll("rect").transition().duration(1000)
-      // .data(graphData)
-      // .attr("fill", "black")
-
-      // svg.select("axis").transition().duration(1000).call(xAxis);
-    }
   }
 }
