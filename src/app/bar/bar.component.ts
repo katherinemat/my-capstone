@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 
@@ -9,6 +9,7 @@ import * as d3 from 'd3';
 })
 export class BarComponent implements OnInit {
   @Input() OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
+  @Output() YearSearchParameter = new EventEmitter();
   // @ViewChild('test-bar') div;
   public graphElement;
 
@@ -20,9 +21,10 @@ export class BarComponent implements OnInit {
     setTimeout(() => this.d3SvgBarHorizontal(this.graphElement.clientWidth), 1000);
   }
 
-  // ngAfterViewInit() {
-  //   console.log(this.graphElement);
-  // }
+  submitForm(yearInput: string) {
+    console.log(yearInput);
+    this.YearSearchParameter.emit(yearInput);
+  }
 
   onResize(event) {
     this.d3SvgBarHorizontal(event.target.innerWidth);
@@ -32,15 +34,16 @@ export class BarComponent implements OnInit {
   }
 
   test() {
-    this.OfficerInvolvedShootingsGraphData = [];
-    for(var i = 0; i < this.OfficerInvolvedShootingsGraphData.length; i++) {
-      if(this.OfficerInvolvedShootingsGraphData[i].subjectRace == "white") {
-        this.OfficerInvolvedShootingsGraphData.push(this.OfficerInvolvedShootingsGraphData[i]);
-      }
-    }
-
-    this.d3SvgBarHorizontal(this.graphElement.clientWidth);
-    console.log(this.OfficerInvolvedShootingsGraphData);
+    // this.OfficerInvolvedShootingsGraphData = [];
+    // console.log(this.OfficerInvolvedShootingsGraphData);
+    // this.OfficerInvolvedShootingsGraphData = [];
+    // for(var i = 0; i < this.OfficerInvolvedShootingsGraphData.length; i++) {
+    //   if(this.OfficerInvolvedShootingsGraphData[i].subjectRace == "white") {
+    //     this.OfficerInvolvedShootingsGraphData.push(this.OfficerInvolvedShootingsGraphData[i]);
+    //   }
+    // }
+    //
+    // this.d3SvgBarHorizontal(this.graphElement.clientWidth);
   }
 
   d3SvgBarHorizontal(graphWidth) {

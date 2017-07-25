@@ -4,7 +4,7 @@
 
 <app-scatterplot [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" [SubjectAgeGroupGraphData]="SubjectAgeGroupGraphData"></app-scatterplot>
 
-<app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData"></app-bar>
+<app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" (YearSearchParameter)="queryByYear($event)"></app-bar>
 
 <app-subject-age-group [SubjectAgeGroupGraphData]="SubjectAgeGroupGraphData"></app-subject-age-group>
 

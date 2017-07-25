@@ -1,5 +1,7 @@
-<!-- <label>style</label>
-<select (change)="onYearChange($event.target.value)">
+<label>Year</label>
+<input type="date" #year>
+<button (click)="submitForm(year.value)">submit</button>
+<!-- <select (change)="onYearChange($event.target.value)">
   <option value="All" selected="selected">All Years</option>
   <option value="2006">2006</option>
   <option value="2007">2007</option>
