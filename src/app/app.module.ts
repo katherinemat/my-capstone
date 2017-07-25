@@ -1,3 +1,4 @@
+import { MaterializeModule } from 'angular2-materialize';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +33,7 @@ import { TableComponent } from './table/table.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    MaterializeModule,
     routing
   ],
   providers: [],

@@ -71,9 +71,9 @@ router.get('/grouped-subject-ages', (req, res) => {
 });
 
 router.post('/officer-involved-shootings-where-year', (req, res) => {
-  console.log(req.body.param);
+  console.log(req.body.start);
   knex('officer_involved_shootings')
-      .whereBetween('date', ['2015-01-01', '2015-12-31'])
+      .whereBetween('date', [req.body.start, req.body.end])
       .then((shootings) => {
         res.send(shootings);
       })

@@ -37,8 +37,8 @@ export class GraphsComponent implements OnInit {
     .then(servicePromise => this.SubjectAgeGroupGraphData = servicePromise);
   }
 
-  queryByYear(year) {
-    this.policeService.getPoliceDataFromPsqlDBWhereYear(year)
-    .then(servicePromise => console.log(servicePromise));
+  queryByYear(dateRange) {
+    this.policeService.getPoliceDataFromPsqlDBWhereYear(dateRange)
+    .then(servicePromise => this.OfficerInvolvedShootingsGraphData = servicePromise);
   }
 }

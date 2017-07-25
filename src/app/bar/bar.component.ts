@@ -10,45 +10,28 @@ import * as d3 from 'd3';
 export class BarComponent implements OnInit {
   @Input() OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
   @Output() YearSearchParameter = new EventEmitter();
-  // @ViewChild('test-bar') div;
+
   public graphElement;
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
-    this.graphElement = this.elementRef.nativeElement.querySelector('div');
+    this.graphElement = this.elementRef.nativeElement.querySelector('#test-bar');
 
     setTimeout(() => this.d3SvgBarHorizontal(this.graphElement.clientWidth), 1000);
   }
 
-  submitForm(yearInput: string) {
-    console.log(yearInput);
-    this.YearSearchParameter.emit(yearInput);
+  submitForm(firstDate: string, secondDate: string) {
+    this.YearSearchParameter.emit({start: firstDate, end: secondDate});
+    setTimeout(() => this.d3SvgBarHorizontal(this.graphElement.clientWidth), 1000);
   }
 
   onResize(event) {
     this.d3SvgBarHorizontal(event.target.innerWidth);
   }
 
-  onYearChange(year) {
-  }
-
-  test() {
-    // this.OfficerInvolvedShootingsGraphData = [];
-    // console.log(this.OfficerInvolvedShootingsGraphData);
-    // this.OfficerInvolvedShootingsGraphData = [];
-    // for(var i = 0; i < this.OfficerInvolvedShootingsGraphData.length; i++) {
-    //   if(this.OfficerInvolvedShootingsGraphData[i].subjectRace == "white") {
-    //     this.OfficerInvolvedShootingsGraphData.push(this.OfficerInvolvedShootingsGraphData[i]);
-    //   }
-    // }
-    //
-    // this.d3SvgBarHorizontal(this.graphElement.clientWidth);
-  }
-
   d3SvgBarHorizontal(graphWidth) {
     var w = graphWidth;
-    // var w = this.graphElement.clientWidth;
     var h = 300;
     var padding = 20;
     var barPadding = 1;
@@ -86,7 +69,6 @@ export class BarComponent implements OnInit {
           return xScale(new Date(d.date));
         })
         .attr("y", function(d, i) {
-          // return w - (d * 4);
           return h - yScale(d.summary.length);
         })
         .attr("width", function(d) {
@@ -106,10 +88,10 @@ export class BarComponent implements OnInit {
 
       svg.append("text")
          .attr("id", "mouse-over-text")
-         .attr("x", w / 2)
+         .attr("x", 0)
          .attr("y", 50)
          .text(function() {
-           return d.summary.length;
+           return "date: " + d.date + " length: " + d.summary.length;
          });
     }
 
@@ -124,68 +106,19 @@ export class BarComponent implements OnInit {
        .call(xAxis);
 
     function handleClick(d, i) {
-      let sixMonthsEarlier = new Date(d.date);
-      sixMonthsEarlier.setMonth(sixMonthsEarlier.getMonth() - 6);
-
-      let sixMonthsLater = new Date(d.date);
-      sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
-
-      xScale.domain([sixMonthsEarlier, sixMonthsLater]);
-
-      d3.selectAll("rect").transition().duration(1000).attr("fill", "black")
+      // let sixMonthsEarlier = new Date(d.date);
+      // sixMonthsEarlier.setMonth(sixMonthsEarlier.getMonth() - 6);
+      //
+      // let sixMonthsLater = new Date(d.date);
+      // sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+      //
+      // xScale.domain([sixMonthsEarlier, sixMonthsLater]);
+      //
+      // d3.selectAll("rect").transition().duration(1000)
+      // .data(graphData)
+      // .attr("fill", "black")
 
       // svg.select("axis").transition().duration(1000).call(xAxis);
     }
-
-  }
-
-  d3SvgBar() {
-    var w = 500;
-    var h = 1600;
-    var barPadding = 1;
-    //declared locally because some d3 functions can't reach all the way out to component properties
-    var graphData = this.OfficerInvolvedShootingsGraphData;
-
-    var xScale = d3.scaleLinear()
-                   .domain([0, d3.max(graphData, function(d) {
-                     return d.summary.length;
-                   })])
-                   .range([0, w]);
-
-    var svg = d3.select("#test-bar")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h);
-
-    svg.selectAll("rect")
-        .data(graphData)
-        .enter()
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", function(d, i) {
-          // return w - (d * 4);
-          return i * (h / graphData.length);
-        })
-        .attr("width", function(d) {
-          return xScale(d.summary.length);
-        })
-        .attr("height", function() {
-          return h / graphData.length - barPadding;
-        })
-        .attr("fill", "teal");
-
-    svg.selectAll("text")
-        .data(graphData)
-        .enter()
-        .append("text")
-        .text(function(d, i) {
-          return d.summary.length;
-        })
-        .attr("x", function(d) {
-          return xScale(d.summary.length) - 30;
-        })
-        .attr("y", function(d, i) {
-          return (i + 1) * (h / graphData.length);
-        });
   }
 }

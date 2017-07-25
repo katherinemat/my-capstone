@@ -45,9 +45,9 @@ export class PoliceService {
     });
   }
 
-  getPoliceDataFromPsqlDBWhereYear(year) {
+  getPoliceDataFromPsqlDBWhereYear(dateRange) {
     let transformedOfficerInvolvedShootings = [];
-    return axios.post('/api/officer-involved-shootings-where-year', {param: year})
+    return axios.post('/api/officer-involved-shootings-where-year', dateRange)
       .then((res) => {
         res.data.forEach(object => {
           transformedOfficerInvolvedShootings.push(new OfficerInvolvedShooting(object));
