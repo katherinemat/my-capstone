@@ -16,7 +16,6 @@ export class BarComponent implements OnInit {
 
   ngOnInit() {
     this.graphElement = this.elementRef.nativeElement.querySelector('div');
-    console.log(this.graphElement);
 
     setTimeout(() => this.d3SvgBarHorizontal(this.graphElement.clientWidth), 1000);
   }
@@ -29,7 +28,18 @@ export class BarComponent implements OnInit {
     this.d3SvgBarHorizontal(event.target.innerWidth);
   }
 
+  onYearChange(year) {
+  }
+
   test() {
+    this.OfficerInvolvedShootingsGraphData = [];
+    for(var i = 0; i < this.OfficerInvolvedShootingsGraphData.length; i++) {
+      if(this.OfficerInvolvedShootingsGraphData[i].subjectRace == "white") {
+        this.OfficerInvolvedShootingsGraphData.push(this.OfficerInvolvedShootingsGraphData[i]);
+      }
+    }
+
+    this.d3SvgBarHorizontal(this.graphElement.clientWidth);
     console.log(this.OfficerInvolvedShootingsGraphData);
   }
 
@@ -49,7 +59,10 @@ export class BarComponent implements OnInit {
                    .range([padding, h - padding]);
 
     var xScale = d3.scaleTime()
-                   .domain([new Date(2005, 0, 1), d3.max(graphData, function(d) {
+                   .domain([d3.min(graphData, function(d) {
+                     return new Date(d.date);
+                   }),
+                   d3.max(graphData, function(d) {
                      return new Date(d.date);
                    })])
                    .range([padding, w - padding]);
@@ -74,17 +87,18 @@ export class BarComponent implements OnInit {
           return h - yScale(d.summary.length);
         })
         .attr("width", function(d) {
-          return w / graphData.length - barPadding;
+          return w / graphData.length;
         })
         .attr("height", function(d) {
           return yScale(d.summary.length) - padding;
         })
-        .attr("fill", "teal")
+        .attr("fill", "purple")
+        .attr("fill-opacity", "0.3")
         .on("mouseover", handleMouseOver)
         .on("mouseout", handleMouseOut);
 
     function handleMouseOver(d, i) {
-      d3.select(this).attr("fill", "orange");
+      d3.select(this).attr("fill", "teal");
 
       svg.append("text")
          .attr("id", "mouse-over-text")
@@ -96,29 +110,24 @@ export class BarComponent implements OnInit {
     }
 
     function handleMouseOut(d, i) {
-      d3.select(this).attr("fill", "teal");
-
+      d3.select(this).attr("fill", "purple");
       d3.select("#mouse-over-text").remove();
     }
 
     svg.append("g")
        .attr("class", "axis")
-       .attr("transform", "translate(" + padding + "," + (h - padding) + ")")
+       .attr("transform", "translate(" + 0 + "," + (h - padding) + ")")
        .call(xAxis);
 
-    // svg.selectAll("text")
-    //     .data(graphData)
-    //     .enter()
-    //     .append("text")
-    //     .text(function(d, i) {
-    //       return d.summary.length;
-    //     })
-    //     .attr("x", function(d) {
-    //       return xScale(d.summary.length) - 30;
-    //     })
-    //     .attr("y", function(d, i) {
-    //       return (i + 1) * (h / graphData.length);
-    //     });
+    // function update(graphData) {
+    //   xScale.domain([d3.min(graphData, function(d) {
+    //     return new Date(d.date);
+    //   }),
+    //   d3.max(graphData, function(d) {
+    //     return new Date(d.date);
+    //   })])
+    // }
+
   }
 
   d3SvgBar() {
