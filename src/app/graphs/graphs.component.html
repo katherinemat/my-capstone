@@ -2,6 +2,8 @@
   getPoliceDataFromSocrata
 </p>
 
+<app-pie-chart></app-pie-chart>
+
 <app-scatterplot [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" [SubjectAgeGroupGraphData]="SubjectAgeGroupGraphData"></app-scatterplot>
 
 <app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" (YearSearchParameter)="queryByYear($event)"></app-bar>

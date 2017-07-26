@@ -4,33 +4,3 @@
 <h1>{{testString}}</h1>
 
 <div id="subject-age-group-graph" (window:resize)="onResize($event)"></div>
-
-<select (change)="onChange($event.target.value)">
-  <option value="fatal">fatal</option>
-  <option value="justified">justified</option>
-  <option value="justified_policy">justified_policy</option>
-  <option value="number_of_rounds">number_of_rounds</option>
-  <option value="officer_disciplined">officer_disciplined</option>
-  <option value="officer_gender">officer_gender</option>
-  <option value="officer_injured">officer_injured</option>
-  <option value="officer_race">officer_race</option>
-  <option value="on_duty">on_duty</option>
-  <option value="rank">rank</option>
-  <option value="subject_age" selected="selected">subject_age</option>
-  <option value="subject_gender">subject_gender</option>
-  <option value="subject_race">subject_race</option>
-  <option value="subject_weapon">subject_weapon</option>
-  <option value="type_of_weapon">type_of_weapon</option>
-  <option value="subject_age">subject_age</option>
-  <option value="subject_gender">subject_gender</option>
-</select>
-
-<div style="display: block">
-  <canvas baseChart id="pie-chart"
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [colors]="pieChartColors"
-          [chartType]="pieChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
-</div>

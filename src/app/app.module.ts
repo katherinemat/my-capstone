@@ -16,6 +16,7 @@ import { SubjectAgeGroupComponent } from './subject-age-group/subject-age-group.
 import { TableComponent } from './table/table.component';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ScatterplotComponent,
     BarComponent,
     SubjectAgeGroupComponent,
-    TableComponent
+    TableComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
