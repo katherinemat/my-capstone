@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 import { SubjectAgeGroup } from '../subject-age-group.model';
 import { PoliceService } from '../police.service';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
   selector: 'app-subject-age-group',
@@ -18,8 +19,9 @@ export class SubjectAgeGroupComponent implements OnInit {
   public SubjectAgeGroupGraphData: SubjectAgeGroup[];
 
   public pieChartType:string = 'pie';
-  // public pieChartLabels:string[];
-  // public pieChartData:number[];
+
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+  public pieGraph;
 
   // events
   public chartClicked(e:any):void {
@@ -34,11 +36,10 @@ export class SubjectAgeGroupComponent implements OnInit {
 
   ngOnInit() {
     this.graphElement = this.elementRef.nativeElement.querySelector('#subject-age-group-graph');
+    this.pieGraph = this.elementRef.nativeElement.querySelector('#pie-chart');
 
     setTimeout(() => {
       this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth);
-      console.log(this.pieChartData);
-      console.log(this.pieChartLabels);
     }, 2000);
 
     this.getGroupedSubjectAges();
@@ -49,32 +50,41 @@ export class SubjectAgeGroupComponent implements OnInit {
     .then(servicePromise => {
       this.SubjectAgeGroupGraphData = servicePromise;
 
-      this.pieChartData = this.SubjectAgeGroupGraphData.map(function(data) {
-        return data.count;
-      });
-
       this.pieChartLabels = this.SubjectAgeGroupGraphData.map(function(data) {
         return data.subjectAge;
       });
+
+      setTimeout(() => {
+        this.pieChartData = this.SubjectAgeGroupGraphData.map(function(data) {
+          return data.count;
+        });
+      }, 500);
+
     });
   }
 
   onChange(selectedParameter) {
     this.policeService.getPieChartData({param: selectedParameter})
     .then(servicePromise => {
-      console.log(servicePromise.data);
-
-      this.pieChartData = servicePromise.data.map(function(data) {
-        return data.count;
-      });
-
-      this.pieChartLabels = servicePromise.data.map(function(data) {
-        return data.selectedParameter;
-      });
+      this.setChart(servicePromise.data, selectedParameter);
     });
   }
 
+  setChart(pieChartObjects, parameter) {
+    this.pieChartLabels = pieChartObjects.map(function(data) {
+      return data[parameter];
+    });
+
+    setTimeout(() => {
+      this.pieChartData = pieChartObjects.map(function(data) {
+        return data.count;
+      });
+    }, 50);
+  }
+
   onResize(event) {
+    console.log(this.pieGraph);
+
     this.d3SubjectAgeGroupBubble(event.target.innerWidth);
   }
 

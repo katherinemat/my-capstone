@@ -20,6 +20,7 @@ Specs:
 - can't import service into another service without doing something weird to app.module
 - In order to call service from component that executes axios get request, in component, need to use .then() and need to return entire axios get request
 - I save returned information from socrata to psql database in order to perform queries to get data more complicated than just a list of objects, such as count, max, min, sort, etc.
+- ng2-charts can't update labels and data at the same time. Compensate with setTimeout
 
 What if I use the officer shooting table in seattle open data and then cross reference the description provided with an interpretation by watson. How many negative words used? maybe beneficial because want to keep description neutral? How have descriptions changed over time? do they get longer? do they include more detail?
 
