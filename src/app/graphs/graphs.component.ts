@@ -14,7 +14,10 @@ import { PoliceService } from '../police.service';
 export class GraphsComponent implements OnInit {
 
   public OfficerInvolvedShootingsGraphData;
+
   public SubjectAgeGroupGraphData;
+  public pieChartData;
+  public pieChartLabels;
 
   constructor(private policeService: PoliceService) { }
 
@@ -34,7 +37,17 @@ export class GraphsComponent implements OnInit {
 
   getGroupedSubjectAges() {
     this.policeService.getGroupedSubjectAges()
-    .then(servicePromise => this.SubjectAgeGroupGraphData = servicePromise);
+    .then(servicePromise => {
+      this.SubjectAgeGroupGraphData = servicePromise;
+
+      this.pieChartData = this.SubjectAgeGroupGraphData.map(function(data) {
+        return data.count;
+      });
+
+      this.pieChartLabels = this.SubjectAgeGroupGraphData.map(function(data) {
+        return data.subjectAge;
+      })
+    });
   }
 
   queryByYear(dateRange) {

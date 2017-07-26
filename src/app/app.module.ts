@@ -1,4 +1,3 @@
-import { MaterializeModule } from 'angular2-materialize';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +14,8 @@ import { ScatterplotComponent } from './scatterplot/scatterplot.component';
 import { BarComponent } from './bar/bar.component';
 import { SubjectAgeGroupComponent } from './subject-age-group/subject-age-group.component';
 import { TableComponent } from './table/table.component';
+
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { TableComponent } from './table/table.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterializeModule,
+    ChartsModule,
     routing
   ],
   providers: [],

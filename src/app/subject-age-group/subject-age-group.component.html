@@ -1,6 +1,7 @@
-<p>
+<p (click)="buildChart()">
   subject-age-group works!
 </p>
+<h1>{{testString}}</h1>
 
 <select>
     <option value="allKegs" selected="selected">All Kegs</option>
@@ -11,3 +12,12 @@
   </select>
 
 <div id="subject-age-group-graph" (window:resize)="onResize($event)"></div>
+
+<div style="display: block">
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>

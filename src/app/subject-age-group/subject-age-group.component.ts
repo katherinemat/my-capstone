@@ -10,15 +10,47 @@ import { SubjectAgeGroup } from '../subject-age-group.model';
 })
 export class SubjectAgeGroupComponent implements OnInit {
   @Input() SubjectAgeGroupGraphData: SubjectAgeGroup[];
+  @Input() pieChartData: number[];
+  @Input() pieChartLabels: number[];
 
   public graphElement;
+  public pieChartDataj = [];
+  public pieChartLabelsj = [];
+
+  public testString = "testttttttt";
+
+  public pieChartType:string = 'pie';
+  // public pieChartLabelsj:string[];
+  // public pieChartDataj:number[];
+
+  // events
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.graphElement = this.elementRef.nativeElement.querySelector('#subject-age-group-graph');
 
-    setTimeout(() => this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth), 1000);
+    setTimeout(() => {
+      this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth);
+    }, 2000);
+  }
+
+  buildChart() {
+    console.log('here');
+    this.testString = "changeeeeeeeed";
+    this.pieChartLabelsj = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+    this.pieChartDataj = [300, 500, 100];
+    // for (let subjectAgeGroup of this.SubjectAgeGroupGraphData) {
+    //   this.pieChartLabelsj.push(subjectAgeGroup.subjectAge);
+    //   this.pieChartDataj.push(subjectAgeGroup.count);
+    // }
   }
 
   onResize(event) {

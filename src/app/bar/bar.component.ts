@@ -80,7 +80,13 @@ export class BarComponent implements OnInit {
         .attr("fill", "purple")
         .attr("fill-opacity", "0.3")
         .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+        .on("mouseout", handleMouseOut)
+        .on("click", handleClick);
+
+    function handleClick(d, i) {
+      d3.select(this).remove();
+      d3.select("#mouse-over-text").remove();
+    }
 
     function handleMouseOver(d, i) {
       d3.select(this).attr("fill", "teal");
