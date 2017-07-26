@@ -68,13 +68,16 @@ export class PieChartComponent implements OnInit {
     }
   ];
   public pieChartType:string = 'pie';
+  //starting parameter matches the default selected option in the .html form
+  public currentParameter: string= "number_of_rounds";
 
   // events
   public chartClicked(e:any):void {
     if (e.active.length > 0){
-      console.log("Index", e.active[0]._index);
-      console.log("Data" , e.active[0]._chart.config.data.datasets[0].data[e.active[0]._index]);
-      console.log("Label" , e.active[0]._chart.config.data.labels[e.active[0]._index]);
+      var index = e.active[0]._index;
+      var data = e.active[0]._chart.config.data.datasets[0].data[e.active[0]._index];
+      var label = e.active[0]._chart.config.data.labels[e.active[0]._index];
+      console.log("data: " + data + " label: " + label);
     }
   }
 
@@ -89,26 +92,18 @@ export class PieChartComponent implements OnInit {
   }
 
   getGroupedSubjectAges() {
-    this.policeService.getGroupedSubjectAges()
+    this.policeService.getPieChartData({param: this.currentParameter})
     .then(servicePromise => {
-      this.SubjectAgeGroupGraphData = servicePromise;
-
-      this.pieChartLabels = this.SubjectAgeGroupGraphData.map(function(data) {
-        return data.subjectAge;
-      });
-
-      setTimeout(() => {
-        this.pieChartData = this.SubjectAgeGroupGraphData.map(function(data) {
-          return data.count;
-        });
-      }, 500);
+      this.setChart(servicePromise.data, this.currentParameter);
     });
   }
 
   onChange(selectedParameter) {
-    this.policeService.getPieChartData({param: selectedParameter})
+    this.currentParameter = selectedParameter;
+
+    this.policeService.getPieChartData({param: this.currentParameter})
     .then(servicePromise => {
-      this.setChart(servicePromise.data, selectedParameter);
+      this.setChart(servicePromise.data, this.currentParameter);
     });
   }
 
