@@ -55,14 +55,22 @@ export class SubjectAgeGroupComponent implements OnInit {
 
       this.pieChartLabels = this.SubjectAgeGroupGraphData.map(function(data) {
         return data.subjectAge;
-      })
+      });
     });
   }
 
   onChange(selectedParameter) {
     this.policeService.getPieChartData({param: selectedParameter})
     .then(servicePromise => {
-      console.log(servicePromise);
+      console.log(servicePromise.data);
+
+      this.pieChartData = servicePromise.data.map(function(data) {
+        return data.count;
+      });
+
+      this.pieChartLabels = servicePromise.data.map(function(data) {
+        return data.selectedParameter;
+      });
     });
   }
 
