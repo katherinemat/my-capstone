@@ -13,15 +13,62 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 })
 export class SubjectAgeGroupComponent implements OnInit {
 
+  public SubjectAgeGroupGraphData: SubjectAgeGroup[];
   public graphElement;
   public pieChartData = [];
   public pieChartLabels = [];
-  public SubjectAgeGroupGraphData: SubjectAgeGroup[];
-
+  public pieChartColors = [
+    { // grey
+      backgroundColor: [
+        'rgba(0, 125, 81, 0.8)',
+        'rgba(56, 135, 215, 0.8)',
+        'rgba(215, 215, 56, 0.8)',
+        'rgba(255, 33, 143, 0.8)',
+        'rgba(191, 196, 223, 0.8)',
+        'rgba(56, 215, 56, 0.8)',
+        'rgba(96, 174, 146, 0.8)',
+        'rgba(255, 154, 33, 0.8)',
+        'rgba(96, 108, 174, 0.8)',
+        'rgba(56, 215, 136, 0.8)',
+        'rgba(205, 215, 56, 0.8)',
+        'rgba(255, 33, 33, 0.8)',
+        'rgba(126, 215, 56, 0.8)',
+        'rgba(56, 215, 66, 0.8)',
+        'rgba(56, 215, 146, 0.8)',
+        'rgba(56, 205, 215, 0.8)',
+        'rgba(223, 255, 33, 0.8)',
+        'rgba(0, 19, 125, 0.8)',
+        'rgba(136, 56, 215, 0.8)',
+        'rgba(215, 56, 214, 0.8)',
+        'rgba(255, 116, 116, 0.8)',
+        'rgba(215, 56, 56, 0.8)',
+        'rgba(148,159,177, 0.8)',
+        'rgba(166, 166, 166, 0.8)',
+        'rgba(255, 200, 200, 0.8)',
+        'rgba(235, 255, 116, 0.8)',
+        'rgba(56, 215, 97, 0.8)',
+        'rgba(56, 215, 177, 0.8)',
+        'rgba(215, 118, 56, 0.8)',
+        'rgba(215, 136, 56, 0.8)',
+        'rgba(56, 174, 215, 0.8)',
+        'rgba(56, 94, 215, 0.8)',
+        'rgba(97, 56, 215, 0.8)',
+        'rgba(56, 214, 215, 0.8)',
+        'rgba(0, 56, 215, 0.8)',
+        'rgba(198, 56, 215, 0.8)',
+        'rgba(219, 219, 219, 0.8)',
+        'rgba(215, 56, 153, 0.8)',
+        'rgba(215, 56, 73, 0.8)',
+        'rgba(113, 113, 113, 0.8)'
+      ],
+      borderColor: 'white',
+      pointBackgroundColor: 'white',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'white'
+    }
+  ];
   public pieChartType:string = 'pie';
-
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-  public pieGraph;
 
   // events
   public chartClicked(e:any):void {
@@ -36,7 +83,6 @@ export class SubjectAgeGroupComponent implements OnInit {
 
   ngOnInit() {
     this.graphElement = this.elementRef.nativeElement.querySelector('#subject-age-group-graph');
-    this.pieGraph = this.elementRef.nativeElement.querySelector('#pie-chart');
 
     setTimeout(() => {
       this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth);
@@ -60,6 +106,10 @@ export class SubjectAgeGroupComponent implements OnInit {
         });
       }, 500);
 
+      // setTimeout(() => {
+      //   this.pieChartColors[0].backgroundColor = this.generateRandomColors(this.pieChartData.length);
+      // }, 100);
+
     });
   }
 
@@ -80,10 +130,26 @@ export class SubjectAgeGroupComponent implements OnInit {
         return data.count;
       });
     }, 50);
+
+    // setTimeout(() => {
+    //   this.pieChartColors[0].backgroundColor = this.generateRandomColors(this.pieChartData.length);
+    // }, 100);
   }
 
+  // generateRandomColors(amount) {
+  //   let colors = [];
+  //   var letters = '0123456789ABCDEF';
+  //   for(var j = 0; j < amount; j++) {
+  //     var color = '#';
+  //     for (var i = 0; i < 6; i++) {
+  //       color += letters[Math.floor(Math.random() * 16)];
+  //     }
+  //     colors.push(color);
+  //   }
+  //   return colors;
+  // }
+
   onResize(event) {
-    console.log(this.pieGraph);
 
     this.d3SubjectAgeGroupBubble(event.target.innerWidth);
   }
