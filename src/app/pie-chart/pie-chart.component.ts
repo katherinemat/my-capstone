@@ -71,7 +71,11 @@ export class PieChartComponent implements OnInit {
 
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    if (e.active.length > 0){
+      console.log("Index", e.active[0]._index);
+      console.log("Data" , e.active[0]._chart.config.data.datasets[0].data[e.active[0]._index]);
+      console.log("Label" , e.active[0]._chart.config.data.labels[e.active[0]._index]);
+    }
   }
 
   public chartHovered(e:any):void {
