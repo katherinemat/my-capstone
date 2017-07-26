@@ -3,20 +3,20 @@
 </p>
 <h1>{{testString}}</h1>
 
-<select>
-    <option value="allKegs" selected="selected">All Kegs</option>
-    <option value="IPA">IPA</option>
-    <option value="Amber">Amber</option>
-    <option value="Pilsner">Pilsner</option>
-    <option value="Lager">Lager</option>
-  </select>
-
 <div id="subject-age-group-graph" (window:resize)="onResize($event)"></div>
+
+<select>
+  <option value="allKegs" selected="selected">All Kegs</option>
+  <option value="IPA">IPA</option>
+  <option value="Amber">Amber</option>
+  <option value="Pilsner">Pilsner</option>
+  <option value="Lager">Lager</option>
+</select>
 
 <div style="display: block">
   <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
+          [data]="pieChartDataj"
+          [labels]="pieChartLabelsj"
           [chartType]="pieChartType"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>

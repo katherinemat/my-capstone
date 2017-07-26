@@ -2,11 +2,13 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 import { SubjectAgeGroup } from '../subject-age-group.model';
+import { PoliceService } from '../police.service';
 
 @Component({
   selector: 'app-subject-age-group',
   templateUrl: './subject-age-group.component.html',
-  styleUrls: ['./subject-age-group.component.css']
+  styleUrls: ['./subject-age-group.component.css'],
+  providers: [PoliceService]
 })
 export class SubjectAgeGroupComponent implements OnInit {
   @Input() SubjectAgeGroupGraphData: SubjectAgeGroup[];
@@ -16,6 +18,7 @@ export class SubjectAgeGroupComponent implements OnInit {
   public graphElement;
   public pieChartDataj = [];
   public pieChartLabelsj = [];
+  public SubjectAgeGroupGraphDataj: SubjectAgeGroup[];
 
   public testString = "testttttttt";
 
@@ -32,14 +35,33 @@ export class SubjectAgeGroupComponent implements OnInit {
     console.log(e);
   }
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, private policeService: PoliceService) { }
 
   ngOnInit() {
     this.graphElement = this.elementRef.nativeElement.querySelector('#subject-age-group-graph');
 
     setTimeout(() => {
       this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth);
+      console.log(this.pieChartDataj);
+      console.log(this.pieChartLabelsj);
     }, 2000);
+
+    this.getGroupedSubjectAges();
+  }
+
+  getGroupedSubjectAges() {
+    this.policeService.getGroupedSubjectAges()
+    .then(servicePromise => {
+      this.SubjectAgeGroupGraphDataj = servicePromise;
+
+      this.pieChartDataj = this.SubjectAgeGroupGraphDataj.map(function(data) {
+        return data.count;
+      });
+
+      this.pieChartLabelsj = this.SubjectAgeGroupGraphDataj.map(function(data) {
+        return data.subjectAge;
+      })
+    });
   }
 
   buildChart() {
