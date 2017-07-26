@@ -11,20 +11,15 @@ import { PoliceService } from '../police.service';
   providers: [PoliceService]
 })
 export class SubjectAgeGroupComponent implements OnInit {
-  @Input() SubjectAgeGroupGraphData: SubjectAgeGroup[];
-  @Input() pieChartData: number[];
-  @Input() pieChartLabels: number[];
 
   public graphElement;
-  public pieChartDataj = [];
-  public pieChartLabelsj = [];
-  public SubjectAgeGroupGraphDataj: SubjectAgeGroup[];
-
-  public testString = "testttttttt";
+  public pieChartData = [];
+  public pieChartLabels = [];
+  public SubjectAgeGroupGraphData: SubjectAgeGroup[];
 
   public pieChartType:string = 'pie';
-  // public pieChartLabelsj:string[];
-  // public pieChartDataj:number[];
+  // public pieChartLabels:string[];
+  // public pieChartData:number[];
 
   // events
   public chartClicked(e:any):void {
@@ -42,8 +37,8 @@ export class SubjectAgeGroupComponent implements OnInit {
 
     setTimeout(() => {
       this.d3SubjectAgeGroupBubble(this.graphElement.clientWidth);
-      console.log(this.pieChartDataj);
-      console.log(this.pieChartLabelsj);
+      console.log(this.pieChartData);
+      console.log(this.pieChartLabels);
     }, 2000);
 
     this.getGroupedSubjectAges();
@@ -52,27 +47,23 @@ export class SubjectAgeGroupComponent implements OnInit {
   getGroupedSubjectAges() {
     this.policeService.getGroupedSubjectAges()
     .then(servicePromise => {
-      this.SubjectAgeGroupGraphDataj = servicePromise;
+      this.SubjectAgeGroupGraphData = servicePromise;
 
-      this.pieChartDataj = this.SubjectAgeGroupGraphDataj.map(function(data) {
+      this.pieChartData = this.SubjectAgeGroupGraphData.map(function(data) {
         return data.count;
       });
 
-      this.pieChartLabelsj = this.SubjectAgeGroupGraphDataj.map(function(data) {
+      this.pieChartLabels = this.SubjectAgeGroupGraphData.map(function(data) {
         return data.subjectAge;
       })
     });
   }
 
-  buildChart() {
-    console.log('here');
-    this.testString = "changeeeeeeeed";
-    this.pieChartLabelsj = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-    this.pieChartDataj = [300, 500, 100];
-    // for (let subjectAgeGroup of this.SubjectAgeGroupGraphData) {
-    //   this.pieChartLabelsj.push(subjectAgeGroup.subjectAge);
-    //   this.pieChartDataj.push(subjectAgeGroup.count);
-    // }
+  onChange(selectedParameter) {
+    this.policeService.getPieChartData({param: selectedParameter})
+    .then(servicePromise => {
+      console.log(servicePromise);
+    });
   }
 
   onResize(event) {

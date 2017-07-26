@@ -70,6 +70,21 @@ router.get('/grouped-subject-ages', (req, res) => {
       })
 });
 
+router.post('/pie-chart-data', (req, res) => {
+  console.log(req.body.param)
+  knex('officer_involved_shootings')
+      .select(req.body.param)
+      .count(req.body.param)
+      .groupBy(req.body.param)
+      .orderBy(req.body.param, 'asc')
+      .then((shootings) => {
+        res.send(shootings);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+});
+
 router.post('/officer-involved-shootings-where-year', (req, res) => {
   console.log(req.body.start);
   knex('officer_involved_shootings')

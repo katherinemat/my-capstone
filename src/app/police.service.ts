@@ -45,6 +45,13 @@ export class PoliceService {
     });
   }
 
+  getPieChartData(param) {
+    return axios.post('/api/pie-chart-data', param)
+    .then((res) => {
+      return res;
+    });
+  }
+
   getPoliceDataFromPsqlDBWhereYear(dateRange) {
     let transformedOfficerInvolvedShootings = [];
     return axios.post('/api/officer-involved-shootings-where-year', dateRange)
