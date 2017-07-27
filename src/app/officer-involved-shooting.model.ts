@@ -2,6 +2,8 @@ export class OfficerInvolvedShooting {
   public date: any;
   public fatal: string;
   public justified: string;
+  public justifiedPolicy: string;
+  public withinPolicy: string;
   public latitude: string;
   public longitude: string;
   public numberOfRounds: number;
@@ -24,6 +26,8 @@ export class OfficerInvolvedShooting {
     this.date = databaseObject.date;
     this.fatal = databaseObject.fatal;
     this.justified = databaseObject.justified;
+    this.justifiedPolicy = databaseObject.justified_policy;
+    this.withinPolicy = databaseObject.within_policy;
     this.latitude = databaseObject.latitude;
     this.longitude = databaseObject.longitude;
     this.numberOfRounds = databaseObject.number_of_rounds;

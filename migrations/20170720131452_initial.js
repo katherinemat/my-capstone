@@ -12,6 +12,7 @@ exports.up = function(knex) {
       frb varchar(255),
       go varchar(255),
       justified varchar(255),
+      within_policy varchar(255),
       justified_policy varchar(255),
       latitude varchar(255),
       longitude varchar(255),

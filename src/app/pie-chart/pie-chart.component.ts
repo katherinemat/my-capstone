@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 import * as d3 from 'd3';
 import { SubjectAgeGroup } from '../subject-age-group.model';
+import { DatabaseColumn } from '../database-column.model';
 import { PoliceService } from '../police.service';
 
 @Component({
@@ -12,8 +13,10 @@ import { PoliceService } from '../police.service';
 })
 export class PieChartComponent implements OnInit {
 
-  public SubjectAgeGroupGraphData: SubjectAgeGroup[];
+  // public OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
   public graphElement;
+  public dataCount = 0;
+  public dataDescription = "The number of rounds the officer fired during the incident, if known. If the officer fired more than one round, and the exact number of rounds fired by each officer in an incident cannot be determined, multiple is indicated."
   public pieChartData = [];
   public pieChartLabels = [];
   public pieChartColors = [
@@ -71,6 +74,26 @@ export class PieChartComponent implements OnInit {
   //starting parameter matches the default selected option in the .html form
   public currentParameter: string= "number_of_rounds";
 
+  public databaseColumns: DatabaseColumn[] = [
+    new DatabaseColumn('number_of_rounds', 'The number of rounds the officer fired during the incident, if known. If the officer fired more than one round, and the exact number of rounds fired by each officer in an incident cannot be determined, multiple is indicated.'),
+    new DatabaseColumn('city', 'City where the incident occurred'),
+    new DatabaseColumn('fatal', 'Whether the subject was fatally injured during the incident. Either "yes" or "no"'),
+    new DatabaseColumn('justified', 'Prior to 2014 the Firearms Review Board judged officer involved shootings to be justified or not justified. Incidents in this dataset that occurred prior to the 2014 policy changes governing the department\'s use of force reporting and review indicate either "Yes" (justified) or "No" (not justified). For incidents reviewed by the Force Review Board after the 2014 the column indicating justified is blank.'),
+    new DatabaseColumn('within_policy', 'For incidents occurring after 2014 and reviewed by the Force Review Board, incidents are determined to be within policy ("yes") or not within policy("no").'),
+    new DatabaseColumn('justified_policy', 'Combined field including justified and within policy, according to relevant standard.'),
+    new DatabaseColumn('officer_disciplined', 'Indicates whether the officer involved in the incident was disciplined for the policy violations associated with the indident.'),
+    new DatabaseColumn('officer_gender', 'The gender of the officer in the incident.'),
+    new DatabaseColumn('officer_injured', 'Whether the officer suffered serious injury during the incident. Either yes or no.'),
+    new DatabaseColumn('officer_race', 'The race of the officer involved in the incident.'),
+    new DatabaseColumn('on_duty', 'Whether the officer was on duty at the time of the incident. Either "yes" or "no".'),
+    new DatabaseColumn('rank', 'The rank of the officer involved in the incident at the time of the incident.'),
+    new DatabaseColumn('subject_age', 'The age of the subject involved in the incident if known. Rounded to the nearest full year.'),
+    new DatabaseColumn('subject_gender', 'The gender of the subject involved in the incident if known.'),
+    new DatabaseColumn('subject_race', 'The race of the subject involved in the incident if known.'),
+    new DatabaseColumn('subject_weapon', 'Indicates whether the subject involved in the incident was armed with a weapon. Either "yes" or "no".'),
+    new DatabaseColumn('type_of_weapon', 'A brief description of the weapon the subject was armed with, if applicable. If the subject had no weapon, the data field is blank.')
+  ]
+
   // events
   public chartClicked(e:any):void {
     if (e.active.length > 0){
@@ -88,10 +111,15 @@ export class PieChartComponent implements OnInit {
   constructor(private elementRef: ElementRef, private policeService: PoliceService) { }
 
   ngOnInit() {
-    this.getGroupedSubjectAges();
+    this.policeService.getPoliceDataFromPsqlDB()
+    .then(servicePromise => {
+      this.dataCount = servicePromise.length;
+      console.log(servicePromise.length);
+    });
+    this.getData();
   }
 
-  getGroupedSubjectAges() {
+  getData() {
     this.policeService.getPieChartData({param: this.currentParameter})
     .then(servicePromise => {
       this.setChart(servicePromise.data, this.currentParameter);
@@ -117,6 +145,13 @@ export class PieChartComponent implements OnInit {
         return data.count;
       });
     }, 50);
+
+    // setTimeout(() => {
+    //   let dataCount = 0;
+    //   for (var i = 0; i < this.pieChartData.length; i++) {
+    //
+    //   }
+    // });
   }
 
 }

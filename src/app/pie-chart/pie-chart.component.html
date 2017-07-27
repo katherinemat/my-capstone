@@ -1,9 +1,10 @@
-<p>
-  pie-chart works!
-</p>
+<p>Total number of records for this dataset: {{dataCount}}</p>
+<p>Breakdown information by selecting a column in the dataset</p>
 
 <select (change)="onChange($event.target.value)">
-  <option value="fatal">fatal</option>
+  <option *ngFor="let column of databaseColumns" value={{column.column}}>{{column.column}}</option>
+  <!-- <option value="city">City where the incident occurred</option>
+  <option value="fatal">Whether the subject was fatally injured during the incident. Either "yes or "no"</option>
   <option value="justified">justified</option>
   <option value="justified_policy">justified_policy</option>
   <option value="number_of_rounds" selected="selected">number_of_rounds</option>
@@ -19,8 +20,10 @@
   <option value="subject_weapon">subject_weapon</option>
   <option value="type_of_weapon">type_of_weapon</option>
   <option value="subject_age">subject_age</option>
-  <option value="subject_gender">subject_gender</option>
+  <option value="subject_gender">subject_gender</option> -->
 </select>
+
+<p>{{dataDescription}}</p>
 
 <div style="display: block">
   <canvas baseChart id="pie-chart"
