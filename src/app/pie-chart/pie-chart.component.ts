@@ -14,7 +14,6 @@ import { PoliceService } from '../police.service';
 export class PieChartComponent implements OnInit {
 
   // public OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
-  public graphElement;
   public dataCount = 0;
   public pieChartData = [];
   public pieChartLabels = [];
@@ -115,7 +114,6 @@ export class PieChartComponent implements OnInit {
     this.policeService.getPoliceDataFromPsqlDB()
     .then(servicePromise => {
       this.dataCount = servicePromise.length;
-      console.log(servicePromise.length);
     });
     this.getData();
   }
@@ -158,13 +156,6 @@ export class PieChartComponent implements OnInit {
         return data.count;
       });
     }, 50);
-
-    // setTimeout(() => {
-    //   let dataCount = 0;
-    //   for (var i = 0; i < this.pieChartData.length; i++) {
-    //
-    //   }
-    // });
   }
 
 }

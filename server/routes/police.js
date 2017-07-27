@@ -85,7 +85,7 @@ router.post('/pie-chart-data', (req, res) => {
 });
 
 router.get('/time-chart-data', (req, res) => {
-  knex.raw('SELECT subject_gender, extract(year from date) as yyyy FROM officer_involved_shootings ORDER BY date, subject_gender')
+  knex.raw('SELECT COUNT(subject_gender), subject_gender, extract(year from date) AS yyyy FROM officer_involved_shootings GROUP BY subject_gender, yyyy ORDER BY yyyy, subject_gender')
       .then((shootings) => {
         res.send(shootings);
       })

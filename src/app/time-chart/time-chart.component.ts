@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PoliceService } from '../police.service';
+import { DatabaseColumn } from '../database-column.model';
+import { TimeChart } from '../time-chart.model';
+import { OfficerInvolvedShooting } from '../officer-involved-shooting.model';
 
 
 @Component({
@@ -9,19 +12,6 @@ import { PoliceService } from '../police.service';
   providers: [PoliceService]
 })
 export class TimeChartComponent implements OnInit {
-
-  constructor(private policeService: PoliceService) { }
-
-  ngOnInit() {
-  }
-
-  test() {
-    this.policeService.getTimeChartData()
-    .then(servicePromise => {
-      console.log(servicePromise);
-    });
-  }
-
   public lineChartData:Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
@@ -59,17 +49,50 @@ export class TimeChartComponent implements OnInit {
   ];
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
+  public dataCount = 0;
 
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
+
+
+  constructor(private policeService: PoliceService) { }
+
+  ngOnInit() {
+    this.policeService.getPoliceDataFromPsqlDB()
+    .then(servicePromise => {
+      this.dataCount = servicePromise.length;
+    });
+    this.getData();
   }
+
+  getData() {
+    this.policeService.getTimeChartData()
+    .then(servicePromise => {
+      console.log(servicePromise.data.rows);
+    });
+
+  }
+
+  // let description = "";
+  // this.databaseColumns.forEach(function(column) {
+  //   if(column.column === param) {
+  //     description = column.description;
+  //   }
+  // });
+  // return description;
+  //
+  // setChart(timeChartObjects) {
+  //   timeChartObjects.forEach(function(timeChartObject) {
+  //
+  //   })
+  //   this.pieChartLabels = pieChartObjects.map(function(data) {
+  //     return data[parameter];
+  //   });
+  //
+  //   setTimeout(() => {
+  //     this.pieChartData = pieChartObjects.map(function(data) {
+  //       return data.count;
+  //     });
+  //   }, 50);
+  // }
 
   // events
   public chartClicked(e:any):void {
@@ -79,6 +102,4 @@ export class TimeChartComponent implements OnInit {
   public chartHovered(e:any):void {
     console.log(e);
   }
-}
-
 }
