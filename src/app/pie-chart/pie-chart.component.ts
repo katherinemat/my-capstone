@@ -16,7 +16,6 @@ export class PieChartComponent implements OnInit {
   // public OfficerInvolvedShootingsGraphData: OfficerInvolvedShooting[];
   public graphElement;
   public dataCount = 0;
-  public dataDescription = "The number of rounds the officer fired during the incident, if known. If the officer fired more than one round, and the exact number of rounds fired by each officer in an incident cannot be determined, multiple is indicated."
   public pieChartData = [];
   public pieChartLabels = [];
   public pieChartColors = [
@@ -72,7 +71,9 @@ export class PieChartComponent implements OnInit {
   ];
   public pieChartType:string = 'pie';
   //starting parameter matches the default selected option in the .html form
+  public currentColumn: DatabaseColumn;
   public currentParameter: string= "number_of_rounds";
+  public currentDescription = "The number of rounds the officer fired during the incident, if known. If the officer fired more than one round, and the exact number of rounds fired by each officer in an incident cannot be determined, multiple is indicated."
 
   public databaseColumns: DatabaseColumn[] = [
     new DatabaseColumn('number_of_rounds', 'The number of rounds the officer fired during the incident, if known. If the officer fired more than one round, and the exact number of rounds fired by each officer in an incident cannot be determined, multiple is indicated.'),
@@ -126,8 +127,20 @@ export class PieChartComponent implements OnInit {
     });
   }
 
+  findDatabaseColumn(param) {
+    let description = "";
+    this.databaseColumns.forEach(function(column) {
+      if(column.column === param) {
+        description = column.description;
+      }
+    });
+    return description;
+  }
+
   onChange(selectedParameter) {
     this.currentParameter = selectedParameter;
+
+    this.currentDescription = this.findDatabaseColumn(selectedParameter);
 
     this.policeService.getPieChartData({param: this.currentParameter})
     .then(servicePromise => {
