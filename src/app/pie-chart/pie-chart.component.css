@@ -1,0 +1,26 @@
+#pie-chart-container {
+  margin: 20px 0px;
+}
+
+#intro-and-form {
+  text-align: center;
+  top: 50%;
+}
+
+#total-intro {
+  font-size: 30px;
+  padding: 140px 10px 60px 10px;
+}
+
+#form-intro {
+  font-size: 18px;
+  padding: 10px;
+}
+
+#chart-and-description {
+  max-width: 1000px;
+}
+
+#description {
+  padding: 30px 10px 10px 10px;
+}

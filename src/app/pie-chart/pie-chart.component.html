@@ -1,36 +1,23 @@
-<p>Total number of records for this dataset: {{dataCount}}</p>
-<p>Breakdown information by selecting a column in the dataset</p>
+<div class="row" id="pie-chart-container">
+  <div class="col-sm-3" id="intro-and-form">
+    <p id="total-intro">Total number of records for this dataset: {{dataCount}}</p>
+    <p id="form-intro">Breakdown information by selecting a column in the dataset</p>
 
-<select (change)="onChange($event.target.value)">
-  <option *ngFor="let column of databaseColumns" value={{column.column}}>{{column.column}}</option>
-  <!-- <option value="city">City where the incident occurred</option>
-  <option value="fatal">Whether the subject was fatally injured during the incident. Either "yes or "no"</option>
-  <option value="justified">justified</option>
-  <option value="justified_policy">justified_policy</option>
-  <option value="number_of_rounds" selected="selected">number_of_rounds</option>
-  <option value="officer_disciplined">officer_disciplined</option>
-  <option value="officer_gender">officer_gender</option>
-  <option value="officer_injured">officer_injured</option>
-  <option value="officer_race">officer_race</option>
-  <option value="on_duty">on_duty</option>
-  <option value="rank">rank</option>
-  <option value="subject_age">subject_age</option>
-  <option value="subject_gender">subject_gender</option>
-  <option value="subject_race">subject_race</option>
-  <option value="subject_weapon">subject_weapon</option>
-  <option value="type_of_weapon">type_of_weapon</option>
-  <option value="subject_age">subject_age</option>
-  <option value="subject_gender">subject_gender</option> -->
-</select>
+    <select (change)="onChange($event.target.value)">
+      <option *ngFor="let column of databaseColumns" value={{column.column}}>{{column.column}}</option>
+    </select>
+  </div>
+  <div class="col-sm-9" id="chart-and-description">
+    <p id="description">{{currentDescription}}</p>
 
-<p>{{currentDescription}}</p>
-
-<div style="display: block">
-  <canvas baseChart id="pie-chart"
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [colors]="pieChartColors"
-          [chartType]="pieChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+    <div style="display: block">
+      <canvas baseChart id="pie-chart"
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [colors]="pieChartColors"
+      [chartType]="pieChartType"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
 </div>
