@@ -14,6 +14,11 @@ export class PoliceService {
     .then((res) => {
       //saves data returned in json to postgres database
       res.data.forEach(object => {
+        for(var property in object) {
+          if (object.hasOwnProperty(property)) {
+            object[property] = object[property].trim();
+          }
+        }
         axios.post('/api/officer-related-shootings', object)
         .then(function(res) {
           console.log(object)
