@@ -13,4 +13,9 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
+  navigateToSocrata() {
+    window.open("https://data.seattle.gov/Public-Safety/SPD-Officer-Involved-Shooting-OIS-Data/mg5r-efcm", "_blank");
+
+  }
+
 }
