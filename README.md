@@ -12,6 +12,8 @@ Specs:
 - Delete superfluous components and code
 - Actually brainstorm what graphs would be useful in this dataset
 - Handle objects that have things like age "unknown"
+- In bar component, change form input type date to take dynamically updated information from database (SELECT MIN(date) FROM officer_involved_shootings)
+- Move databaseColumns in pie-chart component to service (separation of logic)
 
 
 #Quirks specific to my project

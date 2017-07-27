@@ -71,7 +71,6 @@ router.get('/grouped-subject-ages', (req, res) => {
 });
 
 router.post('/pie-chart-data', (req, res) => {
-  console.log(req.body.param)
   knex('officer_involved_shootings')
       .select(req.body.param)
       .count(req.body.param)
@@ -82,6 +81,16 @@ router.post('/pie-chart-data', (req, res) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+});
+
+router.get('/time-chart-data', (req, res) => {
+  knex.raw('SELECT subject_gender, extract(year from date) as yyyy FROM officer_involved_shootings ORDER BY date, subject_gender')
+      .then((shootings) => {
+        res.send(shootings);
+      })
+      .catch((err) => {
+        res.send(err);
       })
 });
 

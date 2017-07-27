@@ -67,4 +67,11 @@ export class PoliceService {
         return transformedOfficerInvolvedShootings;
       });
   }
+
+  getTimeChartData() {
+    return axios.get('/api/time-chart-data')
+    .then((res) => {
+      return res;
+    });
+  }
 }

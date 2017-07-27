@@ -32,15 +32,16 @@ export class BarComponent implements OnInit {
 
   d3SvgBarHorizontal(graphWidth) {
     var w = graphWidth;
-    var h = 300;
+    var h = 600;
     var padding = 20;
     var barPadding = 1;
+    var param = "summary";
     //declared locally because some d3 functions can't reach all the way out to component properties
     var graphData = this.OfficerInvolvedShootingsGraphData;
 
     var yScale = d3.scaleLinear()
                    .domain([0, d3.max(graphData, function(d) {
-                     return d.summary.length;
+                     return d[param].length;
                    })])
                    .range([padding, h - padding]);
 
@@ -69,13 +70,13 @@ export class BarComponent implements OnInit {
           return xScale(new Date(d.date));
         })
         .attr("y", function(d, i) {
-          return h - yScale(d.summary.length);
+          return h - yScale(d[param].length);
         })
         .attr("width", function(d) {
           return w / graphData.length;
         })
         .attr("height", function(d) {
-          return yScale(d.summary.length) - padding;
+          return yScale(d[param].length) - padding;
         })
         .attr("fill", "purple")
         .attr("fill-opacity", "0.3")
@@ -96,7 +97,7 @@ export class BarComponent implements OnInit {
          .attr("x", 0)
          .attr("y", 50)
          .text(function() {
-           return "date: " + d.date + " length: " + d.summary.length;
+           return "date: " + d.date + " length: " + d[param].length;
          });
     }
 

@@ -17,6 +17,7 @@ import { TableComponent } from './table/table.component';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { TimeChartComponent } from './time-chart/time-chart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
     BarComponent,
     SubjectAgeGroupComponent,
     TableComponent,
-    PieChartComponent
+    PieChartComponent,
+    TimeChartComponent
   ],
   imports: [
     BrowserModule,
