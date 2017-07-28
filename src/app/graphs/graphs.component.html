@@ -1,13 +1,18 @@
-<p (click)="getPoliceDataFromSocrata()">
+<!-- <p (click)="getPoliceDataFromSocrata()">
   getPoliceDataFromSocrata
 </p>
-
-<app-pie-chart></app-pie-chart>
+ -->
+ <div id="graphs-container">
+   <app-pie-chart></app-pie-chart>
+</div>
 
 <div class="divider"></div>
 
-<app-time-chart></app-time-chart>
+<div id="graphs-container">
+   <app-time-chart></app-time-chart>
 
-<app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" (YearSearchParameter)="queryByYear($event)"></app-bar>
+   <app-subject-age-group></app-subject-age-group>
 
-<app-subject-age-group></app-subject-age-group>
+   <app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" (YearSearchParameter)="queryByYear($event)"></app-bar>
+
+ </div>

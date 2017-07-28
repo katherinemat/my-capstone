@@ -1,9 +1,7 @@
-<p>{{currentDescription}}</p>
-
-<div>
-  <select (change)="onChange($event.target.value)">
-    <option *ngFor="let column of databaseColumns" value={{column.column}}>{{column.column}}</option>
-  </select>
+<div id="time-chart-title">
+  Side-by-side comparison by year
+</div>
+<div id="time-chart">
   <div style="display: block">
     <canvas baseChart
             [datasets]="barChartData"
@@ -14,5 +12,22 @@
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
+  </div>
+</div>
+<div id="form-and-description">
+  <div id="form-intro">Juxtapose different incident responses to see how they change from 2005 - 2016</div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <select (change)="onChange($event.target.value)">
+        <option *ngFor="let column of databaseColumns" value={{column.column}}>{{column.column}}</option>
+      </select>
+
+    </div>
+    <div class="col-sm-10">
+      <p>{{currentDescription}}</p>
+
+    </div>
+
   </div>
 </div>
