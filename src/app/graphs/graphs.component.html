@@ -10,9 +10,11 @@
 
 <div id="graphs-container">
    <app-time-chart></app-time-chart>
+</div>
 
-   <app-subject-age-group></app-subject-age-group>
+<div class="divider"></div>
 
+<div id="graphs-container">
    <app-bar [OfficerInvolvedShootingsGraphData]="OfficerInvolvedShootingsGraphData" (YearSearchParameter)="queryByYear($event)"></app-bar>
-
  </div>
+ <!-- <app-subject-age-group></app-subject-age-group> -->

@@ -12,6 +12,7 @@ export class BarComponent implements OnInit {
   @Output() YearSearchParameter = new EventEmitter();
 
   public graphElement;
+  // public currentSummary = "test";
 
   constructor(private elementRef: ElementRef) { }
 
@@ -30,7 +31,15 @@ export class BarComponent implements OnInit {
     this.d3SvgBarHorizontal(event.target.innerWidth);
   }
 
+  // changeCurrentSummary(summary) {
+  //   this.currentSummary = summary;
+  //   console.log(this.currentSummary);
+  // }
+
   d3SvgBarHorizontal(graphWidth) {
+    var changeCurrentSummary = function(summary) {
+      this.changeCurrentSummary(summary);
+    }
     var w = graphWidth;
     var h = 600;
     var padding = 36;
@@ -93,19 +102,21 @@ export class BarComponent implements OnInit {
 
     function handleClick(d, i) {
       // d3.select(this).remove();
+      // changeCurrentSummary(d.summary);
       d3.select("#mouse-over-text").remove();
+      svg.append("text")
+      .attr("id", "mouse-over-text")
+      .attr("x", 0)
+      .attr("y", 50)
+      .attr("word-wrap", "break-word")
+      .text(function() {
+        return d.summary;
+      });
     }
 
     function handleMouseOver(d, i) {
       d3.select(this).attr("fill", "#003F40");
 
-      svg.append("text")
-         .attr("id", "mouse-over-text")
-         .attr("x", 0)
-         .attr("y", 50)
-         .text(function() {
-           return "length: " + d[param].length;
-         });
     }
 
     function handleMouseOut(d, i) {

@@ -4,7 +4,7 @@
   </div>
 
   <div id="time-intro">
-    Select a time-span to view how summaries of officer involved shootings compare over time. Dataset ranges from 2005/03/21 until 2016/06/19. Click on bar to read summary.
+    Select a time-span to view how summaries of officer involved shootings compare over time. Dataset ranges from 2005/03/21 until 2016/06/19.
   </div>
 
   <label>First date</label>
@@ -14,4 +14,7 @@
   <button (click)="submitForm(firstDate.value, secondDate.value)">submit</button>
 
   <div id="test-bar" (window:resize)="onResize($event)"></div>
+</div>
+<div id="current-summary">
+  {{currentSummary}}
 </div>
