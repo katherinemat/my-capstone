@@ -18,7 +18,11 @@ export class PoliceService {
           if (object.hasOwnProperty(property)) {
             object[property] = object[property].trim();
           }
+          else {
+            console.log("object doesn't have own property" + object);
+          }
         }
+
         axios.post('/api/officer-related-shootings', object)
         .then(function(res) {
           console.log(object)

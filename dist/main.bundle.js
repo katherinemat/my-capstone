@@ -35,6 +35,9 @@ var PoliceService = (function () {
                     if (object.hasOwnProperty(property)) {
                         object[property] = object[property].trim();
                     }
+                    else {
+                        console.log("object doesn't have own property" + object);
+                    }
                 }
                 __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/officer-related-shootings', object)
                     .then(function (res) {
