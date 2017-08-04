@@ -34,6 +34,7 @@
     "angular2-materialize": "^15.0.4",
     "axios": "^0.16.1",
     "aylien-news-api": "^2.0.2",
+    "body-parser": "^1.17.2",
     "chart.js": "^2.6.0",
     "codelyzer": "^2.0.1",
     "core-js": "^2.4.1",
