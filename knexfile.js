@@ -13,12 +13,6 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'production',
-      password: 'production',
-      database: 'test_capstone'
-    // client: 'pg',
-    // connection: process.env.DATABASE_URL
+    connection: process.env.DATABASE_URL
   }
 }
