@@ -6,8 +6,10 @@
   },
   "license": "MIT",
   "angular-cli": {},
+  "main": "server/server.js",
   "scripts": {
     "knex": "knex",
+    "heroku-postbuild": "knex migrate:latest",
     "ng": "ng",
     "start": "nodemon server/server.js",
     "test": "ng test",
@@ -37,6 +39,7 @@
     "knex": "^0.13.0",
     "materialize-css": "^0.98.2",
     "ng2-charts": "^1.6.0",
+    "nodemon": "^1.11.0",
     "nouislider": "^10.0.0",
     "path": "^0.12.7",
     "pg": "^6.2.2",
