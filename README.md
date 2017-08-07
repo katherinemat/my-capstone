@@ -1,3 +1,5 @@
+As of 8/4, not 120 objects put into psql database. not sure if http request actually is returning another number or if something is happening when transferring from json to psql db. try to run in local host in dev and prod environments to test
+
 Specs:
 1. Connect to API
 2. Have application pull from socrata once in app.component
